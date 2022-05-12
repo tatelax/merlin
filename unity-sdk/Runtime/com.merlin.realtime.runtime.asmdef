@@ -1,0 +1,17 @@
+{
+    "name": "com.merlin.realtime.runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f829098a39adf5641a5db89608bd75ee",
+        "GUID:04376767bc1f3b428aefa3d20743e819"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
