@@ -1,18 +1,33 @@
 .DS_Store
-node_modules
-/dist
-/resources
-/components
-package-lock.json
+web/node_modules
+web/dist
+web/resources
+web/components
+web/package-lock.json
 
 # misc
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
-npm-debug.log
-testem.log
-/typings
+web/.sass-cache
+web/connect.lock
+web/coverage
+web/libpeerconnection.log
+web/npm-debug.log
+web/testem.log
+web/typings
+
+websocket/node_modules
+websocket/dist
+websocket/resources
+websocket/components
+websocket/package-lock.json
+
+# misc
+websocket/.sass-cache
+websocket/connect.lock
+websocket/coverage
+websocket/libpeerconnection.log
+websocket/npm-debug.log
+websocket/testem.log
+websocket/typings
 
 # local env files
 .env.local
