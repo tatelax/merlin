@@ -3,10 +3,13 @@
 		<div class="col-12">
 			<div class="card">
 				<h5>Filter Menu</h5>
+				<Toast />
+
 				<DataTable :value="customer1" :paginator="true" class="p-datatable-gridlines" :rows="10" dataKey="id" :rowHover="true" 
 							v-model:filters="filters1" filterDisplay="menu" :loading="loading1" :filters="filters1" responsiveLayout="scroll"
-							:globalFilterFields="['name','country.name','representative.name','balance','status']" >
-					
+							:globalFilterFields="['name','country.name','representative.name','balance','status']" v-model:selection="selectedProduct" selectionMode="single" 
+							@rowSelect="onRowSelect" @rowUnselect="onRowUnselect">
+
 					<template #header>
                         <div class="flex justify-content-between flex-column sm:flex-row">
                             <Button type="button" icon="pi pi-filter-slash" label="Clear" class="p-button-outlined mb-2" @click="clearFilter1()"/>
@@ -280,6 +283,7 @@
 				customer1: null,
 				customer2: null,
 				customer3: null,
+				selectedProduct: null,
 				filters1: null,
 				filters2: {},
 				loading1: true,
@@ -366,6 +370,12 @@
 				}
 
 				return total;
+			},
+			onRowSelect(event) {
+				this.$toast.add({severity: 'info', summary: 'Product Selected', detail: 'Name: ' + event.data.name, life: 3000});
+			},
+			onRowUnselect(event) {
+				this.$toast.add({severity: 'warn', summary: 'Product Unselected', detail: 'Name: ' + event.data.name, life: 3000});
 			}
 		}
 	}
