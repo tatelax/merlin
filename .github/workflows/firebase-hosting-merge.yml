@@ -18,3 +18,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_MERLIN_3E4CE }}'
           channelId: live
           projectId: merlin-3e4ce
+          entryPoint: './web'
