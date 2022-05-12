@@ -13,3 +13,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: 'websocket'
+          entryPoint: 'websocket'
