@@ -15,4 +15,4 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_MERLIN_3E4CE }}'
           projectId: merlin-3e4ce
-          entryPoint: './web'
+          entryPoint: 'web'
