@@ -38,13 +38,13 @@ yarn-error.log*
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
-demo/[Ll]ibrary/
-demo/[Tt]emp/
-demo/[Oo]bj/
-demo/[Bb]uild/
-demo/[Bb]uilds/
-demo/[Ll]ogs/
-demo/[Uu]ser[Ss]ettings/
+unity-demo/[Ll]ibrary/
+unity-demo/[Tt]emp/
+unity-demo/[Oo]bj/
+unity-demo/[Bb]uild/
+unity-demo/[Bb]uilds/
+unity-demo/[Ll]ogs/
+unity-demo/[Uu]ser[Ss]ettings/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
