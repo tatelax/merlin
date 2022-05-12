@@ -14,7 +14,7 @@ io.on("connection", (socket) => {
         console.log("Received client handshake");
         
         socket.emit("server-handshake");
-        console.log("Sent server handshake");
+        console.log("Sent server handshake!");
     });
 });
 
