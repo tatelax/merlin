@@ -165,6 +165,11 @@ const routes = [
         path: '/access',
         name: 'access',
         component: () => import('./pages/Access.vue')
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        component: () => import('./pages/NotFound.vue')
     }
 ];
 
