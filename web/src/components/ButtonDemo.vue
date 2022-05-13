@@ -3,14 +3,14 @@
 		<div class="col-12 md:col-6">
 			<div class="card">
 				<h5>Default</h5>
-				<Button label="Submit" class="mr-2 mb-2"></Button>
+				<Button label="Submit" class="mr-2 mb-2" @click="connect"></Button>
 				<Button label="Disabled" class="mr-2 mb-2" :disabled="true"></Button>
 				<Button label="Link" class="p-button-link mr-2 mb-2" />
 			</div>
 
 			<div class="card">
 				<h5>Severities</h5>
-				<Button label="Primary" class="mr-2 mb-2"/>
+				<Button label="Primary" class="mr-2 mb-2" @click="send"/>
 				<Button label="Secondary" class="p-button-secondary mr-2 mb-2" />
 				<Button label="Success" class="p-button-success mr-2 mb-2" />
 				<Button label="Info" class="p-button-info mr-2 mb-2" />
@@ -52,22 +52,27 @@
 
 			<div class="card">
 				<h5>SplitButton</h5>
-				<SplitButton label="Save" icon="pi pi-check" :model="items" class="p-button-secondary mr-2 mb-2"></SplitButton>
-				<SplitButton label="Save" icon="pi pi-check" :model="items" class="p-button-success mr-2 mb-2"></SplitButton>
-				<SplitButton label="Save" icon="pi pi-check" :model="items" class="p-button-info mr-2 mb-2"></SplitButton>
-				<SplitButton label="Save" icon="pi pi-check" :model="items" class="p-button-warning mr-2 mb-2"></SplitButton>
-				<SplitButton label="Save" icon="pi pi-check" :model="items" class="p-button-danger mr-2 mb-2"></SplitButton>
+				<SplitButton label="Save" icon="pi pi-check" :model="items" class="p-button-secondary mr-2 mb-2">
+				</SplitButton>
+				<SplitButton label="Save" icon="pi pi-check" :model="items" class="p-button-success mr-2 mb-2">
+				</SplitButton>
+				<SplitButton label="Save" icon="pi pi-check" :model="items" class="p-button-info mr-2 mb-2">
+				</SplitButton>
+				<SplitButton label="Save" icon="pi pi-check" :model="items" class="p-button-warning mr-2 mb-2">
+				</SplitButton>
+				<SplitButton label="Save" icon="pi pi-check" :model="items" class="p-button-danger mr-2 mb-2">
+				</SplitButton>
 			</div>
 
 			<div class="card">
 				<h5>Templating</h5>
-                <Button type="button" class="mr-2 mb-2 px-3">
-                    <img alt="logo" src="images/primevue-logo.svg" style="width: 1.5rem"/>
-                </Button>
-                <Button type="button" class="p-button-outlined p-button-success mr-2 mb-2">
-                    <img alt="logo" src="images/primevue-logo.svg" style="width: 1.5rem" />
-                    <span class="ml-2 text-bold">PrimeVue</span>
-                </Button>
+				<Button type="button" class="mr-2 mb-2 px-3">
+					<img alt="logo" src="images/primevue-logo.svg" style="width: 1.5rem" />
+				</Button>
+				<Button type="button" class="p-button-outlined p-button-success mr-2 mb-2">
+					<img alt="logo" src="images/primevue-logo.svg" style="width: 1.5rem" />
+					<span class="ml-2 text-bold">PrimeVue</span>
+				</Button>
 			</div>
 		</div>
 
@@ -134,44 +139,63 @@
 
 			<div class="card">
 				<h5>Loading</h5>
-                <Button type="button" class="mr-2 mb-2" label="Search" icon="pi pi-search" :loading="loading[0]" @click="load(0)" />
-                <Button type="button" class="mr-2 mb-2" label="Search" icon="pi pi-search" iconPos="right" :loading="loading[1]" @click="load(1)"  />
-                <Button type="button" class="mr-2 mb-2" icon="pi pi-search" :loading="loading[2]" @click="load(2)" />
-                <Button type="button" class="mr-2 mb-2" label="Search" :loading="loading[3]" @click="load(3)" />
+				<Button type="button" class="mr-2 mb-2" label="Search" icon="pi pi-search" :loading="loading[0]"
+					@click="load(0)" />
+				<Button type="button" class="mr-2 mb-2" label="Search" icon="pi pi-search" iconPos="right"
+					:loading="loading[1]" @click="load(1)" />
+				<Button type="button" class="mr-2 mb-2" icon="pi pi-search" :loading="loading[2]" @click="load(2)" />
+				<Button type="button" class="mr-2 mb-2" label="Search" :loading="loading[3]" @click="load(3)" />
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				items: [
-					{
-						label: 'Update',
-						icon: 'pi pi-refresh'
-					},
-					{
-						label: 'Delete',
-						icon: 'pi pi-times'
-					},
-					{
-						separator:true
-					},
-					{
-						label: 'Home',
-						icon: 'pi pi-home'
-					},
-				],
-				loading: [false, false, false]
+export default {
+	data() {
+		return {
+			items: [
+				{
+					label: 'Update',
+					icon: 'pi pi-refresh'
+				},
+				{
+					label: 'Delete',
+					icon: 'pi pi-times'
+				},
+				{
+					separator: true
+				},
+				{
+					label: 'Home',
+					icon: 'pi pi-home'
+				},
+			],
+			loading: [false, false, false],
+			connection: null
+		}
+	},
+	methods: {
+		load(index) {
+			this.loading[index] = true;
+			setTimeout(() => this.loading[index] = false, 1000);
+		},
+		connect() {
+			this.connection = new WebSocket("ws://localhost:8080");
+
+
+			this.connection.onmessage = function (event) {
+				console.log(event);
+			}
+
+			this.connection.onopen = function (event) {
+				console.log(event)
+				console.log("Successfully connected to the echo websocket server...")
 			}
 		},
-		methods: {
-			load(index) {
-				this.loading[index] = true;
-				setTimeout(() => this.loading[index] = false, 1000);
-			}
+		send() {
+			this.connection.send('hi');
 		}
 	}
+}
 </script>
