@@ -3,7 +3,7 @@
 		<button class="p-link layout-menu-button layout-topbar-button" @click="onMenuToggle">
 			<i class="pi pi-bars"></i>
 		</button>
-		
+
 		<router-link to="/" class="layout-topbar-logo">
 			<img alt="Logo" :src="topbarImage()" />
 			<span>Merlin</span>
@@ -16,12 +16,6 @@
 			<i class="pi pi-ellipsis-v"></i>
 		</button>
 		<ul class="layout-topbar-menu hidden lg:flex origin-top">
-			<li>
-				<button class="p-link layout-topbar-button">
-					<i class="pi pi-calendar"></i>
-					<span>Events</span>
-				</button>
-			</li>
 			<li>
 				<button class="p-link layout-topbar-button">
 					<i class="pi pi-cog"></i>

@@ -41,7 +41,7 @@ export default {
 				{
 					label: 'UI Components', icon: 'pi pi-fw pi-sitemap',
 					items: [
-						{label: 'Sessions', icon: 'pi pi-fw pi-table', to: '/table'},
+						{label: 'Sessions', icon: 'pi pi-fw pi-table', to: '/sessions'},
 					]
 				}
             ]

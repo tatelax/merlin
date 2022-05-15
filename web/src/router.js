@@ -38,9 +38,9 @@ const routes = [
                 component: () => import('./components/ButtonDemo.vue')
             },
             {
-                path: '/table',
-                name: 'table',
-                component: () => import('./components/TableDemo.vue')
+                path: '/sessions',
+                name: 'sessions',
+                component: () => import('./components/Sessions.vue')
             },
             {
                 path: '/list',
