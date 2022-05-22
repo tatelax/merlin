@@ -1,5 +1,5 @@
 <template>
-	<div :class="containerClass" @click="onWrapperClick">
+    <div :class="containerClass" @click="onWrapperClick">
         <AppTopBar @menu-toggle="onMenuToggle" />
         <div class="layout-sidebar" @click="onSidebarClick">
             <AppMenu :model="menu" @menuitem-click="onMenuItemClick" />
@@ -15,7 +15,7 @@
         <transition name="layout-mask">
             <div class="layout-mask p-component-overlay" v-if="mobileMenuActive"></div>
         </transition>
-	</div>
+    </div>
 </template>
 
 <script>
@@ -31,19 +31,19 @@ export default {
             staticMenuInactive: false,
             overlayMenuActive: false,
             mobileMenuActive: false,
-            menu : [
+            menu: [
                 {
                     label: 'Home',
                     items: [{
                         label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/'
                     }]
                 },
-				{
-					label: 'UI Components', icon: 'pi pi-fw pi-sitemap',
-					items: [
-						{label: 'Sessions', icon: 'pi pi-fw pi-table', to: '/sessions'},
-					]
-				}
+                {
+                    label: 'UI Components', icon: 'pi pi-fw pi-sitemap',
+                    items: [
+                        { label: 'Sessions', icon: 'pi pi-fw pi-table', to: '/sessions' },
+                    ]
+                }
             ]
         }
     },
@@ -67,12 +67,12 @@ export default {
 
             if (this.isDesktop()) {
                 if (this.layoutMode === 'overlay') {
-					if(this.mobileMenuActive === true) {
-						this.overlayMenuActive = true;
-					}
+                    if (this.mobileMenuActive === true) {
+                        this.overlayMenuActive = true;
+                    }
 
                     this.overlayMenuActive = !this.overlayMenuActive;
-					this.mobileMenuActive = false;
+                    this.mobileMenuActive = false;
                 }
                 else if (this.layoutMode === 'static') {
                     this.staticMenuInactive = !this.staticMenuInactive;
@@ -93,9 +93,9 @@ export default {
                 this.mobileMenuActive = false;
             }
         },
-		onLayoutChange(layoutMode) {
-			this.layoutMode = layoutMode;
-		},
+        onLayoutChange(layoutMode) {
+            this.layoutMode = layoutMode;
+        },
         addClass(element, className) {
             if (element.classList)
                 element.classList.add(className);
@@ -130,8 +130,8 @@ export default {
                 'layout-static-sidebar-inactive': this.staticMenuInactive && this.layoutMode === 'static',
                 'layout-overlay-sidebar-active': this.overlayMenuActive && this.layoutMode === 'overlay',
                 'layout-mobile-sidebar-active': this.mobileMenuActive,
-				'p-input-filled': this.$primevue.config.inputStyle === 'filled',
-				'p-ripple-disabled': this.$primevue.config.ripple === false
+                'p-input-filled': this.$primevue.config.inputStyle === 'filled',
+                'p-ripple-disabled': this.$primevue.config.ripple === false
             }];
         },
         logo() {

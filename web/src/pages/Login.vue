@@ -16,50 +16,55 @@
                     </div>
 
                     <TabView ref="auth" style="">
-                        <TabPanel header = "Login">
-                        <div class="w-full md:w-10 mx-auto">
-                            <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
-                            <InputText id="email1" v-model="email" type="text" class="w-full mb-3"
-                                :class="{ 'p-invalid': !validateEmail() }" placeholder="Email" style="padding:1rem;" />
+                        <TabPanel header="Login">
+                            <div class="w-full md:w-10 mx-auto">
+                                <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
+                                <InputText id="email1" v-model="email" type="text" class="w-full mb-3"
+                                    :class="{ 'p-invalid': !validateEmail() }" placeholder="Email"
+                                    style="padding:1rem;" />
 
-                            <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
-                            <Password id="password1" v-model="password" placeholder="Password" :toggleMask="true"
-                                class="w-full mb-3" :class="{ 'p-invalid': !validatePassword() }" inputClass="w-full"
-                                inputStyle="padding:1rem"></Password>
+                                <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
+                                <Password id="password1" v-model="password" placeholder="Password" :toggleMask="true"
+                                    class="w-full mb-3" :class="{ 'p-invalid': !validatePassword() }"
+                                    inputClass="w-full" inputStyle="padding:1rem"></Password>
 
-                            <div class="flex align-items-center justify-content-between mb-5">
-                                <div class="flex align-items-center">
-                                    <Checkbox id="rememberme1" v-model="checked" :binary="true" class="mr-2"></Checkbox>
-                                    <label for="rememberme1">Remember me</label>
+                                <div class="flex align-items-center justify-content-between mb-5">
+                                    <div class="flex align-items-center">
+                                        <Checkbox id="rememberme1" v-model="checked" :binary="true" class="mr-2">
+                                        </Checkbox>
+                                        <label for="rememberme1">Remember me</label>
+                                    </div>
+                                    <a class="font-medium no-underline ml-2 text-right cursor-pointer"
+                                        style="color: var(--primary-color)">Forgot password?</a>
                                 </div>
-                                <a class="font-medium no-underline ml-2 text-right cursor-pointer"
-                                    style="color: var(--primary-color)">Forgot password?</a>
+                                <Button label="Sign In" class="w-full p-3 text-xl" @click.prevent="validate()"></button>
                             </div>
-                            <Button label="Sign In" class="w-full p-3 text-xl" @click.prevent="validate()"></button>
-                        </div>
                         </TabPanel>
 
                         <TabPanel header="Register">
-                        <div class="w-full md:w-10 mx-auto">
-                            <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
-                            <InputText id="email1" v-model="email" type="text" class="w-full mb-3"
-                                :class="{ 'p-invalid': !validateEmail() }" placeholder="Email" style="padding:1rem;" />
+                            <div class="w-full md:w-10 mx-auto">
+                                <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
+                                <InputText id="email1" v-model="email" type="text" class="w-full mb-3"
+                                    :class="{ 'p-invalid': !validateEmail() }" placeholder="Email"
+                                    style="padding:1rem;" />
 
-                            <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
-                            <Password id="password1" v-model="password" placeholder="Password" :toggleMask="true"
-                                class="w-full mb-3" :class="{ 'p-invalid': !validatePassword() }" inputClass="w-full"
-                                inputStyle="padding:1rem"></Password>
+                                <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
+                                <Password id="password1" v-model="password" placeholder="Password" :toggleMask="true"
+                                    class="w-full mb-3" :class="{ 'p-invalid': !validatePassword() }"
+                                    inputClass="w-full" inputStyle="padding:1rem"></Password>
 
-                            <div class="flex align-items-center justify-content-between mb-5">
-                                <div class="flex align-items-center">
-                                    <Checkbox id="rememberme1" v-model="checked" :binary="true" class="mr-2"></Checkbox>
-                                    <label for="rememberme1">Remember me</label>
+                                <div class="flex align-items-center justify-content-between mb-5">
+                                    <div class="flex align-items-center">
+                                        <Checkbox id="rememberme1" v-model="checked" :binary="true" class="mr-2">
+                                        </Checkbox>
+                                        <label for="rememberme1">Remember me</label>
+                                    </div>
+                                    <a class="font-medium no-underline ml-2 text-right cursor-pointer"
+                                        style="color: var(--primary-color)">Forgot password?</a>
                                 </div>
-                                <a class="font-medium no-underline ml-2 text-right cursor-pointer"
-                                    style="color: var(--primary-color)">Forgot password?</a>
+                                <Button label="Register" class="w-full p-3 text-xl"
+                                    @click.prevent="validate()"></button>
                             </div>
-                            <Button label="Register" class="w-full p-3 text-xl" @click.prevent="validate()"></button>
-                        </div>
                         </TabPanel>
                     </Tabview>
                 </div>
@@ -71,6 +76,7 @@
 <script>
 
 import { useVuelidate } from "@vuelidate/core";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
     setup: () => ({ v$: useVuelidate() }),
@@ -81,21 +87,26 @@ export default {
             checked: false,
             validationErrors: [],
             tabItems: [
-                {label: 'Home', icon: 'pi pi-fw pi-home', to:'/error'},
-                {label: 'Calendar', icon: 'pi pi-fw pi-calendar'},
-                {label: 'Edit', icon: 'pi pi-fw pi-pencil'},
-                {label: 'Documentation', icon: 'pi pi-fw pi-file'},
-                {label: 'Settings', icon: 'pi pi-fw pi-cog'}
+                { label: 'Home', icon: 'pi pi-fw pi-home', to: '/error' },
+                { label: 'Calendar', icon: 'pi pi-fw pi-calendar' },
+                { label: 'Edit', icon: 'pi pi-fw pi-pencil' },
+                { label: 'Documentation', icon: 'pi pi-fw pi-file' },
+                { label: 'Settings', icon: 'pi pi-fw pi-cog' }
             ]
         }
     },
     computed: {
+        ...mapGetters(["isUserAuth"]),
         logoColor() {
             if (this.$appState.darkTheme) return 'white';
             return 'dark';
         }
     },
+    mounted() {
+        this.authAction();
+    },
     methods: {
+        ...mapActions(["signInAction", "authAction"]),
         resetError() {
             this.validationErrors = [];
         },
@@ -121,12 +132,8 @@ export default {
         },
         validate() {
             if (this.validatePassword() && this.validateEmail()) {
-                this.signIn();
+                this.signInAction({ email: this.email, password: this.password });
             }
-        },
-        signIn() {
-            // @TODO signIn logic will come here
-            console.log("sign in", this.email, this.password);
         }
     }
 }

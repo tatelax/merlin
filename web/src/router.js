@@ -1,11 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import App from './App.vue';
+import store from './store'
 
 const routes = [
     {
         path: '/',
         name: 'app',
         component: App,
+        meta: { requiresAuth: true },
         children: [
             {
                 path: '',
@@ -177,5 +179,15 @@ const router = createRouter({
     history: createWebHistory(),
     routes,
 });
+
+router.beforeEach((to) => {
+    if (to.meta.requiresAuth && !store.getters.isUserAuth) {
+        return {
+            path: '/login',
+            // save the location we were at to come back later
+            query: { redirect: to.fullPath },
+        }
+    }
+})
 
 export default router;

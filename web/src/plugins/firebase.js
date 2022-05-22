@@ -1,7 +1,7 @@
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 
 // Import needed firebase modules
-import "firebase/auth";
+import "firebase/compat/auth";
 
 // Firebase app config
 const config = {

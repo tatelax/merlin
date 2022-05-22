@@ -23,18 +23,38 @@
 				</button>
 			</li>
 			<li>
-				<button class="p-link layout-topbar-button">
+				<button class="p-link layout-topbar-button" @click="toggleProfileMenu">
 					<i class="pi pi-user"></i>
 					<span>Profile</span>
 				</button>
+				<Menu id="profileMenu" ref="menu" :model="items" :popup="true" />
 			</li>
 		</ul>
 	</div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
+	data() {
+		return {
+			items: [
+				{
+					label: 'Sign Out',
+					icon: 'pi pi-sign-out',
+					command: () => {
+						this.signOut();
+					}
+				}
+			]
+		}
+	},
 	methods: {
+		...mapActions(["signOutAction"]),
+		signOut() {
+			this.signOutAction();
+		},
 		onMenuToggle(event) {
 			this.$emit('menu-toggle', event);
 		},
@@ -43,6 +63,9 @@ export default {
 		},
 		topbarImage() {
 			return this.$appState.darkTheme ? './images/logo-white.svg' : 'images/logo-dark.svg';
+		},
+		toggleProfileMenu(event) {
+			this.$refs.menu.toggle(event);
 		}
 	},
 	computed: {
