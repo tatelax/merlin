@@ -14,23 +14,23 @@
                         <div class="text-900 text-3xl font-medium mb-3">Welcome!</div>
                         <span class="text-600 font-medium">Sign in to continue</span>
                     </div>
-
+<!--LOGIN-->
                     <TabView ref="auth" style="">
                         <TabPanel header="Login">
                             <div class="w-full md:w-10 mx-auto">
                                 <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
                                 <InputText id="email1" v-model="email" type="text" class="w-full mb-3"
-                                    :class="{ 'p-invalid': !validateEmail() }" placeholder="Email"
+                                    :class="{ 'p-invalid': !validateEmail() && loginAttempted }" placeholder="Email"
                                     style="padding:1rem;" />
 
                                 <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
                                 <Password id="password1" v-model="password" placeholder="Password" :toggleMask="true"
-                                    class="w-full mb-3" :class="{ 'p-invalid': !validatePassword() }"
-                                    inputClass="w-full" inputStyle="padding:1rem"></Password>
+                                    class="w-full mb-3" :class="{ 'p-invalid': !validatePassword() && loginAttempted }"
+                                    inputClass="w-full" inputStyle="padding:1rem" :feedback="false"></Password>
 
                                 <div class="flex align-items-center justify-content-between mb-5">
                                     <div class="flex align-items-center">
-                                        <Checkbox id="rememberme1" v-model="checked" :binary="true" class="mr-2">
+                                        <Checkbox id="rememberme1" v-model="rememberMeChecked" :binary="true" class="mr-2">
                                         </Checkbox>
                                         <label for="rememberme1">Remember me</label>
                                     </div>
@@ -40,7 +40,7 @@
                                 <Button label="Sign In" class="w-full p-3 text-xl" @click.prevent="validate()"></button>
                             </div>
                         </TabPanel>
-
+<!--REGISTER-->
                         <TabPanel header="Register">
                             <div class="w-full md:w-10 mx-auto">
                                 <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
@@ -84,7 +84,8 @@ export default {
         return {
             email: '',
             password: '',
-            checked: false,
+            rememberMeChecked: false,
+            loginAttempted: false,
             validationErrors: [],
             tabItems: [
                 { label: 'Home', icon: 'pi pi-fw pi-home', to: '/error' },
@@ -132,7 +133,11 @@ export default {
         },
         validate() {
             if (this.validatePassword() && this.validateEmail()) {
-                this.signInAction({ email: this.email, password: this.password });
+                this.signInAction({ email: this.email, password: this.password }).then(() => {
+                    this.$router.push('/');
+                });
+            } else {
+                this.loginAttempted = true;
             }
         }
     }

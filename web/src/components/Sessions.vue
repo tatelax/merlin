@@ -27,7 +27,7 @@
                     </template>
                     <Column field="name" header="Name" style="min-width:12rem">
                         <template #body="{data}">
-                            {{data}}
+                            {{data.name}}
                         </template>
                         <template #filter="{filterModel}">
                             <InputText type="text" v-model="filterModel.value" class="p-column-filter" placeholder="Search by name"/>

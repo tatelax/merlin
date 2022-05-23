@@ -53,7 +53,9 @@ export default {
 	methods: {
 		...mapActions(["signOutAction"]),
 		signOut() {
-			this.signOutAction();
+			this.signOutAction().then(() => {
+                    this.$router.push('/login');
+            });
 		},
 		onMenuToggle(event) {
 			this.$emit('menu-toggle', event);

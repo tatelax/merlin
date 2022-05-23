@@ -6,7 +6,6 @@ const actions = {
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-          console.log("logged in");
         commit("setUser", user);
       } else {
         commit("setUser", null);
@@ -22,24 +21,32 @@ const actions = {
       });
   },
   signInAction({ commit }, payload) {
-    firebase
+    return new Promise((resolve, reject) => {
+      firebase
       .auth()
       .signInWithEmailAndPassword(payload.email, payload.password)
+      .then(() => {resolve();})
       .catch(error => {
-          console.log(error.message);
+        console.log(error.message);
+        reject(error.message)
         commit("setError", error.message);
       });
+    });
   },
   signOutAction({ commit }) {
+    return new Promise((resolve, reject) => {
     firebase
       .auth()
       .signOut()
       .then(() => {
         commit("setUser", null);
+        resolve();
       })
       .catch(error => {
         commit("setError", error.message);
+        reject(error.message);
       });
+    });
   }
 };
 
