@@ -20,12 +20,12 @@
                             <div class="w-full md:w-10 mx-auto">
                                 <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
                                 <InputText id="email1" v-model="email" type="text" class="w-full mb-3"
-                                    :class="{ 'p-invalid': !validateEmail() && loginAttempted }" placeholder="Email"
+                                    :class="{ 'p-invalid': (!validateEmail() && login_BadEmail) || loginFailed }" placeholder="Email"
                                     style="padding:1rem;" />
 
                                 <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
                                 <Password id="password1" v-model="password" placeholder="Password" :toggleMask="true"
-                                    class="w-full mb-3" :class="{ 'p-invalid': !validatePassword() && loginAttempted }"
+                                    class="w-full mb-3" :class="{ 'p-invalid': (!validatePassword() && login_BadPassword) || loginFailed }"
                                     inputClass="w-full" inputStyle="padding:1rem" :feedback="false"></Password>
 
                                 <div class="flex align-items-center justify-content-between mb-5">
@@ -37,7 +37,7 @@
                                     <a class="font-medium no-underline ml-2 text-right cursor-pointer"
                                         style="color: var(--primary-color)">Forgot password?</a>
                                 </div>
-                                <Button label="Sign In" class="w-full p-3 text-xl" @click.prevent="validate()"></button>
+                                <Button label="Sign In" class="w-full p-3 text-xl" @click.prevent="login()"></button>
                             </div>
                         </TabPanel>
 <!--REGISTER-->
@@ -45,25 +45,20 @@
                             <div class="w-full md:w-10 mx-auto">
                                 <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
                                 <InputText id="email1" v-model="email" type="text" class="w-full mb-3"
-                                    :class="{ 'p-invalid': !validateEmail() }" placeholder="Email"
+                                    :class="{ 'p-invalid': !validateEmail() && register_BadEmail}" placeholder="Email"
                                     style="padding:1rem;" />
 
                                 <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
                                 <Password id="password1" v-model="password" placeholder="Password" :toggleMask="true"
-                                    class="w-full mb-3" :class="{ 'p-invalid': !validatePassword() }"
+                                    class="w-full mb-3" :class="{ 'p-invalid': !validatePassword() && register_BadPassword }"
                                     inputClass="w-full" inputStyle="padding:1rem"></Password>
 
                                 <div class="flex align-items-center justify-content-between mb-5">
-                                    <div class="flex align-items-center">
-                                        <Checkbox id="rememberme1" v-model="checked" :binary="true" class="mr-2">
-                                        </Checkbox>
-                                        <label for="rememberme1">Remember me</label>
-                                    </div>
                                     <a class="font-medium no-underline ml-2 text-right cursor-pointer"
                                         style="color: var(--primary-color)">Forgot password?</a>
                                 </div>
                                 <Button label="Register" class="w-full p-3 text-xl"
-                                    @click.prevent="validate()"></button>
+                                    @click.prevent="register()"></button>
                             </div>
                         </TabPanel>
                     </Tabview>
@@ -85,7 +80,11 @@ export default {
             email: '',
             password: '',
             rememberMeChecked: false,
-            loginAttempted: false,
+            login_BadEmail: false,
+            login_BadPassword : false,
+            register_BadEmail: false,
+            register_BadPassword: false,
+            loginFailed : false,
             validationErrors: [],
             tabItems: [
                 { label: 'Home', icon: 'pi pi-fw pi-home', to: '/error' },
@@ -107,7 +106,7 @@ export default {
         this.authAction();
     },
     methods: {
-        ...mapActions(["signInAction", "authAction"]),
+        ...mapActions(["signInAction", "signUpAction", "authAction"]),
         resetError() {
             this.validationErrors = [];
         },
@@ -131,14 +130,55 @@ export default {
 
             return true;
         },
-        validate() {
-            if (this.validatePassword() && this.validateEmail()) {
-                this.signInAction({ email: this.email, password: this.password }).then(() => {
-                    this.$router.push('/');
-                });
+        login() {
+            if(!this.validateEmail()) {
+                this.login_BadEmail = true;
             } else {
-                this.loginAttempted = true;
+                this.login_BadEmail = false;
             }
+
+            if(!this.validatePassword()) {
+                this.login_BadPassword = true;
+            } else {
+                this.login_BadPassword = false;
+            }
+
+            if(this.login_BadEmail || this.login_BadPassword) {
+                return;
+            }
+
+            this.signInAction({ email: this.email, password: this.password }).then(() => {
+                this.$router.push('/');
+            }).catch(() => {
+                this.login_BadEmail = true;
+                this.login_BadPassword = true;
+                this.loginFailed = true;
+            });
+        },
+        register() {
+            if(!this.validateEmail()) {
+                this.login_BadEmail = true;
+            } else {
+                this.login_BadEmail = false;
+            }
+
+            if(!this.validatePassword()) {
+                this.login_BadPassword = true;
+            } else {
+                this.login_BadPassword = false;
+            }
+
+            if(this.login_BadEmail || this.login_BadPassword) {
+                return;
+            }
+
+            this.signUpAction({ email: this.email, password: this.password }).then(() => {
+                this.$router.push('/login');
+            }).catch(() => {
+                this.login_BadEmail = true;
+                this.login_BadPassword = true;
+                this.loginFailed = true;
+            });
         }
     }
 }
