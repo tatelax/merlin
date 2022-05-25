@@ -11,11 +11,19 @@
 
 		<button class="p-link layout-topbar-menu-button layout-topbar-button" v-styleclass="{
 			selector: '@next', enterClass: 'hidden', enterActiveClass: 'scalein',
-			leaveToClass: 'hidden', leaveActiveClass: 'fadeout', hideOnOutsideClick: true
-		}">
+			leaveToClass: 'hidden', leaveActiveClass: 'fadeout', hideOnOutsideClick: true}">
 			<i class="pi pi-ellipsis-v"></i>
 		</button>
 		<ul class="layout-topbar-menu hidden lg:flex origin-top">
+			<li>
+				<button class="p-link layout-topbar-button" v-tooltip="'All Apps'" @click="returnToAppList">
+					<i class="pi pi-th-large"></i>
+					<span>All Apps</span>
+				</button>
+			</li>
+			<li>
+				<Dropdown v-model="selectedApp" :options="apps" optionLabel="name" placeholder="Select an App" v-on:change="setSelectedApp" />
+			</li>
 			<li>
 				<button class="p-link layout-topbar-button">
 					<i class="pi pi-cog"></i>
@@ -35,10 +43,13 @@
 
 <script>
 import { mapActions } from "vuex";
+import store from './store'
 
 export default {
 	data() {
 		return {
+			selectedApp: store.getters.selectedApp,
+			apps: store.getters.getApps,
 			items: [
 				{
 					label: 'Sign Out',
@@ -51,7 +62,7 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions(["signOutAction"]),
+		...mapActions(["signOutAction", "setSelectedAppAction"]),
 		signOut() {
 			this.signOutAction().then(() => {
                     this.$router.push('/login');
@@ -64,10 +75,16 @@ export default {
 			this.$emit('topbar-menu-toggle', event);
 		},
 		topbarImage() {
-			return this.$appState.darkTheme ? './images/logo-white.svg' : 'images/logo-dark.svg';
+			return this.$appState.darkTheme ? '/images/logo-white.svg' : '/images/logo-dark.svg';
 		},
 		toggleProfileMenu(event) {
 			this.$refs.menu.toggle(event);
+		},
+		setSelectedApp() {
+			this.setSelectedAppAction(this.selectedApp);
+		},
+		returnToAppList() {
+			this.$router.push('/apps');
 		}
 	},
 	computed: {

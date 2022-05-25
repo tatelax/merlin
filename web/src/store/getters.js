@@ -7,6 +7,12 @@ const getters = {
     },
     getError(state) {
       return state.error;
+    },
+    getSelectedApp(state) {
+      return state.currentApp;
+    },
+    getApps(state) {
+      return state.apps;
     }
   };
   

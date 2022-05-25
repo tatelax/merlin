@@ -21,6 +21,10 @@ const dummyData = [
     name: "Example Session 3"
   }]
 
+wss.on('listening', function open() {
+  console.log(`Server Started on ${wss.address().address}:${wss.address().port}`);
+});
+
 wss.on('connection', function connection(ws, req) {
   ws.id = req.url.replace('/?id=', '')
 
@@ -36,13 +40,4 @@ wss.on('connection', function connection(ws, req) {
   console.log(ws.id);
 
   ws.send(JSON.stringify(dummyData));
-
-  function logEvery2Seconds(i) {
-    setTimeout(() => {
-      console.log('Infinite Loop Test n:', i);
-      logEvery2Seconds(++i);
-    }, 2000)
-  }
-
-  logEvery2Seconds(0);
 });

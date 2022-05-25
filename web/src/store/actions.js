@@ -1,5 +1,4 @@
 import firebase from "firebase/compat/app";
-import { getDatabase, ref, set } from "firebase/database";
 
 const actions = {
   authAction({ commit }) {
@@ -17,7 +16,6 @@ const actions = {
     firebase
       .auth()
       .createUserWithEmailAndPassword(payload.email, payload.password)
-      .then((user) => {writeUserData(user.uid);})
       .catch(error => {
         commit("setError", error.message);
       });
@@ -29,7 +27,6 @@ const actions = {
       .signInWithEmailAndPassword(payload.email, payload.password)
       .then(() => {resolve();})
       .catch(error => {
-        console.log(error.message);
         reject(error.message)
         commit("setError", error.message);
       });
@@ -49,15 +46,10 @@ const actions = {
         reject(error.message);
       });
     });
+  },
+  setSelectedAppAction({ commit }, payload) {
+    commit("setSelectedApp", payload);
   }
 };
-
-function writeUserData(userId) {
-  console.log(userId);
-  const db = getDatabase();
-  set(ref(db, 'users/' + userId), {
-    key: userId
-  });
-}
 
 export default actions;

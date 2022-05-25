@@ -2,7 +2,7 @@
     <div :class="containerClass" @click="onWrapperClick">
         <AppTopBar @menu-toggle="onMenuToggle" />
         <div class="layout-sidebar" @click="onSidebarClick">
-            <AppMenu :model="menu" @menuitem-click="onMenuItemClick" />
+            <AppMenu :model="menu" @menuitem-click="onMenuItemClick" :exact="true"/>
         </div>
 
         <div class="layout-main-container">
@@ -33,16 +33,10 @@ export default {
             mobileMenuActive: false,
             menu: [
                 {
-                    label: 'Home',
-                    items: [{
-                        label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/'
-                    }]
-                },
-                {
-                    label: 'UI Components', icon: 'pi pi-fw pi-sitemap',
+                    label: 'Main',
                     items: [
-                        { label: 'Sessions', icon: 'pi pi-fw pi-table', to: '/sessions' },
-                    ]
+                        { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: 'dashboard'},
+                        { label: 'Live Sessions', icon: 'pi pi-fw pi-circle-fill', to: 'sessions'}]
                 }
             ]
         }
