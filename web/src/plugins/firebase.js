@@ -1,7 +1,7 @@
-import firebase from "firebase/compat/app";
-
-// Import needed firebase modules
-import "firebase/compat/auth";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { onAuthStateChanged, browserLocalPersistence, setPersistence, getAuth } from "firebase/auth";
+import store from '../store'
 
 // Firebase app config
 const config = {
@@ -15,4 +15,21 @@ const config = {
 };
 
 // Init our firebase app
-firebase.initializeApp(config);
+const app = initializeApp(config);
+const auth = getAuth();
+// Initialize Cloud Firestore and get a reference to the service
+const db = getFirestore(app);
+
+setPersistence(auth, browserLocalPersistence);
+
+onAuthStateChanged(auth, async user => {
+  if (user) {
+    store.commit("setUser", user);
+  } else {
+    store.commit("setUser", null);
+  }
+});
+
+export{
+  db
+}

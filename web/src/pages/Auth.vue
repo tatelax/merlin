@@ -102,11 +102,8 @@ export default {
             return 'dark';
         }
     },
-    mounted() {
-        this.authAction();
-    },
     methods: {
-        ...mapActions(["signInAction", "signUpAction", "authAction"]),
+        ...mapActions(["signInAction", "signUpAction"]),
         resetError() {
             this.validationErrors = [];
         },
