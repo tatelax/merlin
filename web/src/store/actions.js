@@ -11,7 +11,7 @@ const actions = {
   },
   signInAction({ commit }, payload) {
     return new Promise((resolve, reject) => {
-      signInWithEmailAndPassword(payload.email, payload.password)
+      signInWithEmailAndPassword(getAuth(), payload.email, payload.password)
         .then(() => { resolve(); })
         .catch(error => {
           reject(error.message)

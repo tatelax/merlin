@@ -145,11 +145,12 @@ export default {
             }
 
             this.signInAction({ email: this.email, password: this.password }).then(() => {
-                this.$router.push('/');
-            }).catch(() => {
+                this.$router.push('/apps');
+            }).catch((error) => {
                 this.login_BadEmail = true;
                 this.login_BadPassword = true;
                 this.loginFailed = true;
+                console.log(error);
             });
         },
         register() {
