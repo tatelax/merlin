@@ -14,10 +14,7 @@ const initialState = () => {
     user: null,
     error: null,
     selectedApp: null,
-    apps: [
-      {name: 'Hello World!', code: 'hw'},
-      {name: 'Example', code: 'example'}
-    ]
+    apps: null
   };
 };
 

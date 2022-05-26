@@ -4,15 +4,15 @@
     </div>
 
     <div class="layout-main-container">
-        <Card style="width: 25rem; margin-bottom: 2em">
+        <Card  style="width: 25rem; margin-bottom: 2em">
             <template #content>
                 <Button @click="openCreateAppModal">Create App</Button>
             </template>
         </Card>
-        <div v-for="app in apps" :key="app.name">
-            <Card style="width: 25rem; margin-bottom: 2em">
+        <div v-for="[key, value] in apps" :key="value">
+            <Card class="app-card" style="width: 25rem; margin-bottom: 2em" @click="appClicked(key)">
                 <template #content>
-                    <span>{{ app.name }}</span>
+                    <span>{{ value.name }}</span>
                 </template>
             </Card>
         </div>
@@ -54,7 +54,10 @@ export default {
         },
         createNewApp() {
             console.log(this.newAppName);
-            this.createNewAppAction({ name: this.newAppName });
+            this.createNewAppAction({ name: this.newAppName, userID: store.getters.getUser.uid});
+        },
+        appClicked(appID) {
+            this.$router.push(`/apps/${appID}/dashboard`);
         },
         footerImage() {
             return this.$appState.darkTheme ? '/images/logo-white.svg' : '/images/logo-dark.svg';
@@ -85,5 +88,9 @@ export default {
 
 .field * {
     display: block;
+}
+
+.app-card {
+    cursor:pointer;
 }
 </style>

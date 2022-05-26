@@ -39,6 +39,7 @@ const actions = {
   createNewAppAction({ commit }, payload) {
     return new Promise((resolve, reject) => {
       addDoc(collection(db, "apps"), {
+        user: payload.userID,
         name: payload.name
       })
       .then(function () {

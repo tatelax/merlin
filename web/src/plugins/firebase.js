@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, collection, query, where, getDocs} from "firebase/firestore";
 import { onAuthStateChanged, browserLocalPersistence, setPersistence, getAuth } from "firebase/auth";
 import store from '../store'
 
@@ -24,11 +24,25 @@ setPersistence(auth, browserLocalPersistence);
 
 onAuthStateChanged(auth, async user => {
   if (user) {
+    var apps = await getApps(user.uid);
+    store.commit("setApps", apps);
     store.commit("setUser", user);
   } else {
     store.commit("setUser", null);
   }
 });
+
+async function getApps(userID) {
+  var q = query(collection(db, "apps"), where("user", "==", userID));
+  var querySnapshot = await getDocs(q);
+  var data = new Map();
+
+  for(let i = 0; i < querySnapshot.docs.length; i++) {
+    data.set(querySnapshot.docs[i].id, querySnapshot.docs[i].data());
+  }
+
+  return data;
+}
 
 export{
   db
