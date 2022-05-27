@@ -14,7 +14,7 @@ const initialState = () => {
     user: null,
     error: null,
     selectedApp: null,
-    apps: null
+    apps: new Map([[1, 'one']])
   };
 };
 
