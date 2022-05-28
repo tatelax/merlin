@@ -93,10 +93,6 @@ export default {
           });
         });
       }
-	
-      if(items.length > 0) {
-        console.log(items[0].label);
-      }
 
       return items;
     },
