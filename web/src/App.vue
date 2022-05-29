@@ -23,7 +23,6 @@
 import AppTopBar from './AppTopbar.vue';
 import AppMenu from './AppMenu.vue';
 import AppFooter from './AppFooter.vue';
-import store from './store';
 
 export default {
     emits: ['change-theme'],
@@ -120,7 +119,7 @@ export default {
     },
     computed: {
         hasSelectedApp() {
-            if(store.getters.getSelectedApp) {
+            if(this.$route.fullPath.split('apps/').length > 1) {
                 return true;
             } else {
                 return false;

@@ -13,10 +13,23 @@ const io = new Server(httpServer, {
 
 const apps = new Map();
 
-apps.set('12345', {
-  name: "Hello World",
-  entities: 2
-});
+apps.set("8ADzfuJklEMSkAvtf7vS", [
+  {
+    name: "Hello World!",
+    entityCount: 2
+  },
+  {
+    name: "Foo Bar",
+    entityCount: 872
+  }
+]);
+
+apps.set("KcXAOoWWBwXNmtRvHkgz", [
+  {
+    name: "Something!",
+    entityCount: 2
+  }
+]);
 
 instrument(io, {
   auth: false
@@ -28,8 +41,18 @@ io.on("connection", (socket) => {
     apps.set(app.id, app);
   });
 
-  socket.on("getApps", () => {
-    socket.emit("apps", [...apps.entries()]);
+  socket.on("getApps", (id) => {
+    // let data = [];
+
+    // for(let i = 0; i < arr.length; i++) {
+    //   console.log(apps.get(arr[i]));
+    //   data[i] = {
+    //     name: apps.get(arr[i]).name,
+    //     entityCount: apps.get(arr[i]).entityCount
+    //   };
+    // }
+
+    socket.emit("apps", apps.get(id));
   });
 });
 

@@ -16,7 +16,7 @@ const routes = [
         ]
     },
     {
-        path: '/apps/:id',
+        path: '/apps/:appId',
         name: 'app',
         component: App,
         meta: { requiresAuth: true },

@@ -51,7 +51,6 @@ export default {
             this.createNewAppAction({ name: this.newAppName, userID: store.getters.getUser.uid});
         },
         appClicked(appID) {
-            this.setSelectedAppAction(appID);
             this.$router.push(`/apps/${appID}/dashboard`);
         },
         footerImage() {

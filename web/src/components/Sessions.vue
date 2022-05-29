@@ -57,6 +57,19 @@
               />
             </template>
           </Column>
+          <Column field="entityCount" header="Entities" style="min-width: 12rem">
+            <template #body="{ data }">
+              {{ data.entityCount }}
+            </template>
+            <template #filter="{ filterModel }">
+              <InputText
+                type="number"
+                v-model="filterModel.value"
+                class="p-column-filter"
+                placeholder="Search by entity count"
+              />
+            </template>
+          </Column>
         </DataTable>
       </div>
     </div>
@@ -79,7 +92,6 @@ export default {
   },
   created() {
     this.initFilters1();
-
     this.startSocket();
   },
   mounted() {},
@@ -88,15 +100,17 @@ export default {
       const socket = io("http://localhost:3000");
       socket.on("connect", () => {
         console.log("Connected!");
-				socket.emit("getApps");
+        socket.emit("getApps", this.$route.params.appId);
       });
 
-			socket.on("apps", (apps) => {
-				console.log(apps);
-			});
+      socket.on("apps", (apps) => {
+        console.log(apps);
+        this.messageReceived(apps);
+        this.loading1 = false;
+      });
     },
     messageReceived(event) {
-      this.sessions = JSON.parse(event.data);
+      this.sessions = event;
     },
     initFilters1() {
       this.filters1 = {

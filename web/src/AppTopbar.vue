@@ -64,13 +64,12 @@
 
 <script>
 import { mapActions } from "vuex";
-import router from "./router";
 import store from "./store";
 
 export default {
   data() {
     return {
-      currentAppDropdownItem: store.getters.getSelectedApp,
+      currentAppDropdownItem: null,
       items: [
         {
           label: "Sign Out",
@@ -123,11 +122,9 @@ export default {
       this.$refs.menu.toggle(event);
     },
     setSelectedAppDropdown(dropdownItem) {
-      this.setSelectedAppAction(dropdownItem.value.value);
-      router.push(`/apps/${dropdownItem.value.value}/dashboard`);
+      this.$router.push({name: this.$route.name, params: {appId: dropdownItem.value.value}});
     },
     returnToAppList() {
-      this.setSelectedAppAction(null);
       this.$router.push("/apps");
     },
   },

@@ -33,17 +33,13 @@ const actions = {
         });
     });
   },
-  setSelectedAppAction({ commit }, payload) {
-    commit("setSelectedApp", payload);
-  },
-  createNewAppAction({ commit }, payload) {
+  createNewAppAction(payload) {
     return new Promise((resolve, reject) => {
       addDoc(collection(db, "apps"), {
         user: payload.userID,
         name: payload.name
       })
       .then(function () {
-        commit("setSelectedApp", payload)
         resolve();
       })
     .catch(error => {
