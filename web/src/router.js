@@ -1,14 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import App from './App.vue';
-import AppManagement from './AppManagement.vue';
 import store from './store'
 
 const routes = [
     {
         path:'/apps',
         name: 'apps',
-        component: AppManagement,
-        meta: { requiresAuth: true }
+        component: App,
+        meta: { requiresAuth: true },
+        children: [
+            {
+                path: '',
+                component: () => import('./components/AppManagement.vue')
+            }
+        ]
     },
     {
         path: '/apps/:id',

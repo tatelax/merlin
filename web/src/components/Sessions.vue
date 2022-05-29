@@ -41,7 +41,8 @@
 
 <script>
 	import {FilterMatchMode,FilterOperator} from 'primevue/api';
-	
+	import store from "../store";
+
 	export default {
 		data() {
 			return {
@@ -55,21 +56,29 @@
 		created() {
 			this.initFilters1();
 
-			this.connection = new WebSocket("ws:localhost:8080?id=setme");
-
-			this.connection.onmessage = (event) => {
-				this.messageReceived(event);
-			}
-
-			this.connection.onopen = () => {
-				this.loading1 = false;
-			}
+			this.startSocket();
 		},
 		mounted() {
 		},
 		methods: {
+			startSocket() {
+				if(typeof store.getSelectedApp === "undefined") {
+					this.$router.push('/apps');
+					return;
+				}
+
+				console.log(store.getSelectedApp);
+				this.connection = new WebSocket(`ws:localhost:8080?id=${store.getSelectedApp.value}`);
+
+				this.connection.onmessage = (event) => {
+					this.messageReceived(event);
+				}
+
+				this.connection.onopen = () => {
+					this.loading1 = false;
+				}
+			},
 			messageReceived(event) {
-				console.log(event.data);
 				this.sessions = JSON.parse(event.data);
 			},
 			initFilters1() {

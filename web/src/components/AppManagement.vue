@@ -1,9 +1,6 @@
 <template>
-    <div :class="containerClass" @click="onWrapperClick">
-        <AppTopBar @menu-toggle="onMenuToggle" />
-    </div>
-
     <div class="layout-main-container">
+
         <Card  style="width: 25rem; margin-bottom: 2em">
             <template #content>
                 <Button @click="openCreateAppModal">Create App</Button>
@@ -32,20 +29,18 @@
 </template>
 
 <script>
-import AppTopBar from './AppTopbar.vue';
-import store from './store'
+import store from '../store'
 import { mapActions } from "vuex";
 
 export default {
     data() {
         return {
-            apps: store.getters.getApps,
             displayCreateAppModal: false,
             newAppName: null
         };
     },
     methods: {
-        ...mapActions(["createNewAppAction"]),
+        ...mapActions(["createNewAppAction", "setSelectedAppAction"]),
         openCreateAppModal() {
             this.displayCreateAppModal = true;
         },
@@ -53,10 +48,10 @@ export default {
             this.displayCreateAppModal = false;
         },
         createNewApp() {
-            console.log(this.newAppName);
             this.createNewAppAction({ name: this.newAppName, userID: store.getters.getUser.uid});
         },
         appClicked(appID) {
+            this.setSelectedAppAction(appID);
             this.$router.push(`/apps/${appID}/dashboard`);
         },
         footerImage() {
@@ -64,12 +59,12 @@ export default {
         }
     },
     computed: {
+        apps() {
+            return store.getters.getApps;
+        },
         darkTheme() {
             return this.$appState.darkTheme;
         }
-    },
-    components: {
-        'AppTopBar': AppTopBar,
     }
 }
 </script>

@@ -25,6 +25,7 @@ wss.on('listening', function open() {
   console.log(`Server Started on ${wss.address().address}:${wss.address().port}`);
 });
 
+// TODO: Auth
 wss.on('connection', function connection(ws, req) {
   ws.id = req.url.replace('/?id=', '')
 

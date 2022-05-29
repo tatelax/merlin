@@ -38,11 +38,11 @@
       </li>
       <li>
         <Dropdown
-          v-model="selectedApp"
+          v-model="currentAppDropdownItem"
           :options="appItems"
           optionLabel="name"
           placeholder="Select an App"
-          v-on:change="setSelectedApp"
+          v-on:change="setSelectedAppDropdown"
         />
       </li>
       <li>
@@ -64,12 +64,13 @@
 
 <script>
 import { mapActions } from "vuex";
+import router from "./router";
 import store from "./store";
 
 export default {
   data() {
     return {
-      selectedApp: store.getters.selectedApp,
+      currentAppDropdownItem: store.getters.getSelectedApp,
       items: [
         {
           label: "Sign Out",
@@ -121,10 +122,12 @@ export default {
     toggleProfileMenu(event) {
       this.$refs.menu.toggle(event);
     },
-    setSelectedApp() {
-      this.setSelectedAppAction(this.selectedApp);
+    setSelectedAppDropdown(dropdownItem) {
+      this.setSelectedAppAction(dropdownItem.value.value);
+      router.push(`/apps/${dropdownItem.value.value}/dashboard`);
     },
     returnToAppList() {
+      this.setSelectedAppAction(null);
       this.$router.push("/apps");
     },
   },

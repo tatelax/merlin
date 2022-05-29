@@ -9,7 +9,7 @@ const getters = {
       return state.error;
     },
     getSelectedApp(state) {
-      return state.currentApp;
+      return state.selectedApp;
     },
     getApps(state) {
       return state.apps;

@@ -1,7 +1,8 @@
 <template>
     <div :class="containerClass" @click="onWrapperClick">
         <AppTopBar @menu-toggle="onMenuToggle" />
-        <div class="layout-sidebar" @click="onSidebarClick">
+
+        <div class="layout-sidebar" @click="onSidebarClick" v-if="hasSelectedApp">
             <AppMenu :model="menu" @menuitem-click="onMenuItemClick" :exact="true"/>
         </div>
 
@@ -22,6 +23,7 @@
 import AppTopBar from './AppTopbar.vue';
 import AppMenu from './AppMenu.vue';
 import AppFooter from './AppFooter.vue';
+import store from './store';
 
 export default {
     emits: ['change-theme'],
@@ -117,6 +119,13 @@ export default {
         }
     },
     computed: {
+        hasSelectedApp() {
+            if(store.getters.getSelectedApp) {
+                return true;
+            } else {
+                return false;
+            }
+        },
         containerClass() {
             return ['layout-wrapper', {
                 'layout-overlay': this.layoutMode === 'overlay',
@@ -139,10 +148,10 @@ export default {
             this.removeClass(document.body, 'body-overflow-hidden');
     },
     components: {
-        'AppTopBar': AppTopBar,
-        'AppMenu': AppMenu,
-        'AppFooter': AppFooter,
-    }
+    "AppTopBar": AppTopBar,
+    "AppMenu": AppMenu,
+    "AppFooter": AppFooter
+}
 }
 </script>
 
