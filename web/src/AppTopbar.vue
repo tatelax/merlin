@@ -43,6 +43,7 @@
           optionLabel="name"
           placeholder="Select an App"
           v-on:change="setSelectedAppDropdown"
+          :loading="appListLoading"
         />
       </li>
       <li>
@@ -69,6 +70,7 @@ import store from "./store";
 export default {
   data() {
     return {
+      appListLoading: true,
       currentAppDropdownItem: null,
       items: [
         {
@@ -100,6 +102,25 @@ export default {
       return this.$appState.darkTheme;
     },
   },
+  mounted() {
+    this.currentAppDropdownItem = this.appItems.find(
+      (value) => value.value == this.$route.params.appId
+    );
+  },
+  watch: {
+    $route(to) {
+      this.currentAppDropdownItem = this.appItems.find(
+        (value) => value.value == to.params.appId
+      );
+    },
+    appItems() {
+      this.currentAppDropdownItem = this.appItems.find(
+        (value) => value.value == this.$route.params.appId
+      );
+
+      this.appListLoading = false;
+    },
+  },
   methods: {
     ...mapActions(["signOutAction", "setSelectedAppAction"]),
     signOut() {
@@ -122,7 +143,11 @@ export default {
       this.$refs.menu.toggle(event);
     },
     setSelectedAppDropdown(dropdownItem) {
-      this.$router.push({name: this.$route.name, params: {appId: dropdownItem.value.value}});
+      console.log(this.currentAppDropdownItem);
+      this.$router.push({
+        name: this.$route.name,
+        params: { appId: dropdownItem.value.value },
+      });
     },
     returnToAppList() {
       this.$router.push("/apps");
