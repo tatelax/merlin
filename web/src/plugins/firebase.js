@@ -45,5 +45,6 @@ async function getApps(userID) {
 }
 
 export{
-  db
+  db,
+  getApps
 }

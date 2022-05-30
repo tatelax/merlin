@@ -33,14 +33,16 @@ const actions = {
         });
     });
   },
-  createNewAppAction(payload) {
+  createNewAppAction(_,payload) {
     return new Promise((resolve, reject) => {
       addDoc(collection(db, "apps"), {
         user: payload.userID,
-        name: payload.name
+        name: payload.name,
+        creationDate: Date.now()
       })
       .then(function () {
-        resolve();
+        console.log(`New App Create by ${payload.userID} called ${payload.name}`);
+        resolve(payload.name);
       })
     .catch(error => {
         reject(error);
