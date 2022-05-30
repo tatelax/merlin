@@ -143,7 +143,6 @@ export default {
       this.$refs.menu.toggle(event);
     },
     setSelectedAppDropdown(dropdownItem) {
-      console.log(this.currentAppDropdownItem);
       this.$router.push({
         name: this.$route.name,
         params: { appId: dropdownItem.value.value },

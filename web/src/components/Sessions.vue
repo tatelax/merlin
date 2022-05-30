@@ -94,7 +94,11 @@ export default {
     this.initFilters1();
     this.startSocket();
   },
-  mounted() {},
+  watch: {
+		$route() {
+			this.startSocket();
+		}
+	},
   methods: {
     startSocket() {
       const socket = io("http://localhost:3000");
@@ -104,7 +108,6 @@ export default {
       });
 
       socket.on("apps", (apps) => {
-        console.log(apps);
         this.messageReceived(apps);
         this.loading1 = false;
       });
