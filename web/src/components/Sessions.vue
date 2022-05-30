@@ -22,6 +22,8 @@
           selectionMode="single"
           @rowSelect="onRowSelect"
           @rowUnselect="onRowUnselect"
+          :resizableColumns="true"
+          columnResizeMode="fit"
         >
           <template #header>
             <div class="flex justify-content-between flex-column sm:flex-row">
@@ -57,7 +59,11 @@
               />
             </template>
           </Column>
-          <Column field="entityCount" header="Entities" style="min-width: 12rem">
+          <Column
+            field="entityCount"
+            header="Entities"
+            style="min-width: 12rem"
+          >
             <template #body="{ data }">
               {{ data.entityCount }}
             </template>
@@ -95,10 +101,10 @@ export default {
     this.startSocket();
   },
   watch: {
-		$route() {
-			this.startSocket();
-		}
-	},
+    $route() {
+      this.startSocket();
+    },
+  },
   methods: {
     startSocket() {
       const socket = io("http://localhost:3000");

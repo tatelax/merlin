@@ -13,7 +13,7 @@ const io = new Server(httpServer, {
 
 const apps = new Map();
 
-apps.set("8ADzfuJklEMSkAvtf7vS", [
+apps.set("oIhL9KaVJ9cn0pKV7fyk", [
   {
     name: "Hello World!",
     entityCount: 2
@@ -24,7 +24,7 @@ apps.set("8ADzfuJklEMSkAvtf7vS", [
   }
 ]);
 
-apps.set("KcXAOoWWBwXNmtRvHkgz", [
+apps.set("cod2WUx7So3Je9pxt6mx", [
   {
     name: "Something!",
     entityCount: 2

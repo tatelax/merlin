@@ -1,22 +1,24 @@
 <template>
   <div class="layout-main-container">
-    <div>
-      <Toast />
-      <Card style="width: 25rem; margin-bottom: 2em">
-        <template #content>
-          <Button @click="openCreateAppModal">Create App</Button>
-        </template>
-      </Card>
-      <div v-for="[key, value] in apps" :key="value">
-        <Card
-          class="app-card"
-          style="width: 25rem; margin-bottom: 2em"
-          @click="appClicked(key)"
-        >
+    <div class="grid">
+      <div class="col">
+        <Toast />
+        <Card style="width: 25rem; margin-bottom: 2em">
           <template #content>
-            <span>{{ value.name }}</span>
+            <Button @click="openCreateAppModal">Create App</Button>
           </template>
         </Card>
+        <div v-for="[key, value] in apps" :key="value">
+          <Card
+            class="app-card"
+            style="width: 25rem; margin-bottom: 2em"
+            @click="appClicked(key)"
+          >
+            <template #content>
+              <span>{{ value.name }}</span>
+            </template>
+          </Card>
+        </div>
       </div>
     </div>
   </div>
