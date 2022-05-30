@@ -1,0 +1,19 @@
+{
+    "name": "merlin-sdk.editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f829098a39adf5641a5db89608bd75ee",
+        "GUID:cf484339f3ede49a9995676555272484"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

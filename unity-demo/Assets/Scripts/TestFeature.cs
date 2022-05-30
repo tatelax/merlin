@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using LazyECS;
+using MerlinSDK;
 using UnityEngine;
 
 public class TestFeature : Feature
 {
     public TestFeature()
     {
-        Systems = new LazyECS.Systems()
+        Systems = new MerlinSDK.Systems()
             .Add(new TestInitializeSystem());
     }
 }

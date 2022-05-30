@@ -1,12 +1,12 @@
 {
-  "name": "com.kinematic.games.merlin-realtime",
+  "name": "com.kinematic.games.merlin-sdk",
   "version": "0.0.1",
-  "displayName": "Merlin Realtime",
-  "description": "ECS for lazy devs.",
+  "displayName": "Merlin SDK",
+  "description": "Merlin SDK",
   "unity": "2017.1",
   "keywords": [
     "ecs",
-    "lazy"
+    "merlin"
   ],
   "author": {
     "name": "Tate McCormick",

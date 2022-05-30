@@ -1,5 +1,5 @@
-using LazyECS;
-using LazyECS.Entity;
+using MerlinSDK;
+using MerlinSDK.Entity;
 using UnityEngine;
 
 public class TestInitializeSystem : IInitializeSystem

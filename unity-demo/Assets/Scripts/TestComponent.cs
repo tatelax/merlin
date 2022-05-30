@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using LazyECS.Component;
+using MerlinSDK.Component;
 using UnityEngine;
 
 public class TestComponent : IComponent
