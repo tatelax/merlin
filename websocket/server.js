@@ -15,10 +15,12 @@ const apps = new Map();
 
 apps.set("oIhL9KaVJ9cn0pKV7fyk", [
   {
+    sessionId: "12345",
     name: "Hello World!",
     entityCount: 2
   },
   {
+    sessionId: "6780",
     name: "Foo Bar",
     entityCount: 872
   }
@@ -26,6 +28,7 @@ apps.set("oIhL9KaVJ9cn0pKV7fyk", [
 
 apps.set("cod2WUx7So3Je9pxt6mx", [
   {
+    sessionId: "393982",
     name: "Something!",
     entityCount: 2
   }

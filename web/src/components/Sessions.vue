@@ -155,11 +155,9 @@ export default {
       });
     },
     onRowSelect(event) {
-      this.$toast.add({
-        severity: "info",
-        summary: "Product Selected",
-        detail: "Name: " + event.data.name,
-        life: 3000,
+      this.$router.push({
+        name: 'session',
+        params: {sessionId: event.data.sessionId}
       });
     },
     onRowUnselect(event) {
