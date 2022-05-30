@@ -112,6 +112,8 @@ export default {
       this.currentAppDropdownItem = this.appItems.find(
         (value) => value.value == to.params.appId
       );
+
+      this.appListLoading = false;
     },
     appItems() {
       this.currentAppDropdownItem = this.appItems.find(
@@ -144,7 +146,7 @@ export default {
     },
     setSelectedAppDropdown(dropdownItem) {
       this.$router.push({
-        name: this.$route.name,
+        name: "sessions",
         params: { appId: dropdownItem.value.value },
       });
     },

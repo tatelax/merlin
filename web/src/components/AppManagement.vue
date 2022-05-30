@@ -15,7 +15,8 @@
             @click="appClicked(key)"
           >
             <template #content>
-              <span>{{ value.name }}</span>
+              <span>{{ value.name }} - </span>
+              <span>{{ key }}</span>
             </template>
           </Card>
         </div>
