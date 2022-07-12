@@ -1,62 +1,53 @@
-import { createServer } from "http";
-import { Server } from "socket.io";
-import { instrument } from "@socket.io/admin-ui";
+import uWS from "uWebSockets.js";
+import {TextDecoder} from "util";
+const port = 9001;
 
-const httpServer = createServer();
-
-const io = new Server(httpServer, {
-  cors: {
-    origin: ["http://localhost:8080"],
-    credentials: false
-  }
-});
-
-const apps = new Map();
-
-apps.set("oIhL9KaVJ9cn0pKV7fyk", [
-  {
-    sessionId: "12345",
-    name: "Hello World!",
-    entityCount: 2
-  },
-  {
-    sessionId: "6780",
-    name: "Foo Bar",
-    entityCount: 872
-  }
+const session = new Map([
+    ["sampleUserId",    {
+                            worlds: [
+                                        {
+                                            id: 1234,
+                                            name: "Hello World!"
+                                        }
+                                    ]
+                        }
+    ]
 ]);
 
-apps.set("cod2WUx7So3Je9pxt6mx", [
-  {
-    sessionId: "393982",
-    name: "Something!",
-    entityCount: 2
-  }
-]);
+const app = uWS./*SSL*/App({
+    key_file_name: 'misc/key.pem',
+    cert_file_name: 'misc/cert.pem',
+    passphrase: '1234'
+}).ws('/*', {
+    /* Options */
+    compression: uWS.SHARED_COMPRESSOR,
+    maxPayloadLength: 16 * 1024 * 1024,
+    maxBackpressure: 1024,
+    idleTimeout: 16,
+    /* Handlers */
+    open: (ws) => {
+        console.log('A WebSocket connected!');
+        ws.send("Hello!");
+    },
+    message: (ws, message, isBinary) => {
+        switch (new TextDecoder().decode(message)) {
+            case "getSessions":
 
-instrument(io, {
-  auth: false
+        }
+        console.log()
+    },
+    drain: (ws) => {
+        console.log('WebSocket backpressure: ' + ws.getBufferedAmount());
+    },
+    close: (ws, code, message) => {
+        console.log('WebSocket closed');
+    }
+}).any('/*', (res, req) => {
+    res.end('Nothing to see here!');
+}).listen(port, (token) => {
+    if (token) {
+        console.log('Listening to port ' + port);
+    } else {
+        console.log('Failed to listen to port ' + port);
+    }
 });
-
-io.on("connection", (socket) => {
-  socket.on("registerApp", (app) => {
-    socket.app = app;
-    apps.set(app.id, app);
-  });
-
-  socket.on("getApps", (id) => {
-    // let data = [];
-
-    // for(let i = 0; i < arr.length; i++) {
-    //   console.log(apps.get(arr[i]));
-    //   data[i] = {
-    //     name: apps.get(arr[i]).name,
-    //     entityCount: apps.get(arr[i]).entityCount
-    //   };
-    // }
-
-    socket.emit("apps", apps.get(id));
-  });
-});
-
-httpServer.listen(3000);

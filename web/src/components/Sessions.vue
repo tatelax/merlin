@@ -84,7 +84,6 @@
 
 <script>
 import { FilterMatchMode, FilterOperator } from "primevue/api";
-import { io } from "socket.io-client";
 
 export default {
   data() {
@@ -107,19 +106,23 @@ export default {
   },
   methods: {
     startSocket() {
-      const socket = io("http://localhost:3000");
-      socket.on("connect", () => {
-        console.log("Connected!");
-        socket.emit("getApps", this.$route.params.appId);
-      });
+      this.connection = new WebSocket("ws://localhost:9001");
 
-      socket.on("apps", (apps) => {
-        this.messageReceived(apps);
-        this.loading1 = false;
-      });
+      this.connection.onopen = () => {
+        console.log("Successfully connected to the echo websocket server...")
+        this.getSessions();
+      }
+
+      this.connection.onmessage = (event) => {
+        console.log(event);
+        this.messageReceived(event)
+      }
     },
     messageReceived(event) {
-      this.sessions = event;
+      console.log(event);
+    },
+    getSessions() {
+      this.connection.send("getSessions");
     },
     initFilters1() {
       this.filters1 = {

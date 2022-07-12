@@ -1,8 +1,8 @@
+using System;
 using System.Collections.Generic;
 using MerlinSDK;
 using MerlinSDK.Component;
 using MerlinSDK.Entity;
-using Socket.Quobject.SocketIoClientDotNet.Client;
 using UnityEngine;
 
 [RequireComponent(typeof(SimulationController))]
@@ -10,7 +10,6 @@ public class Sync : MonoBehaviour
 {
     private SimulationController _controller;
 
-    private QSocket socket;
 
     private async void Awake()
     {
@@ -23,16 +22,9 @@ public class Sync : MonoBehaviour
                 world.Value.OnComponentSetOnEntityEvent += ComponentValueSet;
             }
         };
+        
+        var uri = new Uri("https://www.example.com");
 
-        socket = IO.Socket("http://localhost:3000");
-
-        socket.On(QSocket.EVENT_CONNECT, () =>
-        {
-            Debug.Log("Connected");
-            socket.Emit("chat", "test");
-        });
-
-        socket.On("chat", data => { Debug.Log("data : " + data); });
     }
     
     private void ComponentValueSet(Entity entity, IComponent component, bool setfromnetworkmessage)

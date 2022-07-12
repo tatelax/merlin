@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.itisnajim.socketiounity": {
+      "version": "https://github.com/itisnajim/SocketIOUnity.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "48a4f9dca7911b6ef5b994fdf04a4be96e12b4e7"
+    },
     "com.kinematic.games.merlin-sdk": {
       "version": "file:/Users/tatemccormick/Documents/Projects/merlin/unity-sdk",
       "depth": 0,
@@ -7,7 +14,7 @@
       "dependencies": {}
     },
     "com.unity.collab-proxy": {
-      "version": "1.15.16",
+      "version": "1.15.18",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -130,18 +137,6 @@
       },
       "url": "https://packages.unity.com"
     },
-    "com.unity.timeline": {
-      "version": "1.6.4",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.director": "1.0.0",
-        "com.unity.modules.animation": "1.0.0",
-        "com.unity.modules.audio": "1.0.0",
-        "com.unity.modules.particlesystem": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
     "com.unity.ugui": {
       "version": "1.0.0",
       "depth": 0,
@@ -150,16 +145,6 @@
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
       }
-    },
-    "com.unity.visualscripting": {
-      "version": "1.7.6",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.ugui": "1.0.0",
-        "com.unity.modules.jsonserialize": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

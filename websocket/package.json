@@ -1,14 +1,14 @@
 {
   "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "debug": "nodemon server.js"
   },
   "dependencies": {
-    "@socket.io/admin-ui": "^0.3.0",
     "express": "^4.18.0",
     "firebase": "^9.8.1",
     "nodemon": "^2.0.15",
-    "socket.io": "^4.5.1"
+    "uWebSockets.js": "https://github.com/uNetworking/uWebSockets.js/archive/refs/tags/v20.10.0.tar.gz"
   },
   "devDependencies": {
     "wrangler": "^2.0.3"
