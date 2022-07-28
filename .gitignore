@@ -1,3 +1,6 @@
+websocket-server/app/bin/*
+websocket-server/app/obj/*
+
 .DS_Store
 
 # misc
