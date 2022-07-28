@@ -4,18 +4,30 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
         {
-            "name": ".NET Core Launch (console)",
+            "name": "Start Vue",
+            "cwd": "${workspaceFolder}/web",
+            "command": "npm run serve",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
+            "name": "Websocket Build & Launch (console)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/<target-framework>/<project-name.dll>",
+            "preLaunchTask": "Build WS Server",
+            "program": "${workspaceFolder}/websocket-server/app/bin/Debug/net6.0/app",
             "args": [],
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/websocket-server/app",
             "stopAtEntry": false,
-            "console": "internalConsole"
+            "console": "integratedTerminal",
+        },
+    ],
+    "compounds": [
+        {
+            "name": "Run All",
+            "configurations": ["Start Vue", "Websocket Build & Launch (console)"],
+            "stopAll": true
         }
-
     ]
 }
