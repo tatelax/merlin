@@ -31,12 +31,13 @@ public class WebSocketController : ControllerBase
     private async Task Echo(WebSocket webSocket)
     {
         var buffer = new byte[1024 * 4];
-        var receiveResult = await webSocket.ReceiveAsync(
-            new ArraySegment<byte>(buffer), CancellationToken.None);
+        var receiveResult = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+
+        Console.WriteLine("data received");
 
         while (!receiveResult.CloseStatus.HasValue)
         {
-            await _redisController.WriteData();
+            await _redisController.WriteData(System.Text.Encoding.UTF8.GetString(buffer));
             
             await webSocket.SendAsync(
                 new ArraySegment<byte>(buffer, 0, receiveResult.Count),
@@ -46,7 +47,6 @@ public class WebSocketController : ControllerBase
 
             receiveResult = await webSocket.ReceiveAsync(
                 new ArraySegment<byte>(buffer), CancellationToken.None);
-
         }
 
         await webSocket.CloseAsync(

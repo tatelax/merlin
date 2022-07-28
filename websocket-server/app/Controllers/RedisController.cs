@@ -13,13 +13,12 @@ public class RedisController : ControllerBase
         Console.WriteLine("Redis Controller Ready");
     }
 
-    public async Task<IActionResult> WriteData()
+    public async Task<IActionResult> WriteData(string text)
     {
-        Console.WriteLine("Hello World!");
         var db = _redis.GetDatabase();
         var foo = await db.StreamAddAsync("MyCoolStream", new NameValueEntry[]
         {
-            new("number", 1)
+            new("text", text)
         });
         
         var range = db.StreamRange("MyCoolStream");
