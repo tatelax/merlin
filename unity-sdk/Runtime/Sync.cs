@@ -29,47 +29,52 @@ public class Sync : MonoBehaviour
             }
         };
     }
-    
+
     private async void Start()
     {
-        websocket = new WebSocket("ws://localhost:5000/ws?userID=79&appID=111");
+        websocket = new WebSocket("ws://localhost:2414/?userID=79&appID=111", "HelloWorld");
 
-        websocket.OnOpen += () => {
+
+        websocket.OnOpen += () =>
+        {
             Debug.Log("CONNECTED!");
             websocket.SendText("Hello World!");
         };
 
         websocket.OnError += (e) =>
         {
-        Debug.Log("Error! " + e);
+            Debug.Log("Error! " + e);
         };
 
         websocket.OnClose += (e) =>
         {
-        Debug.Log("Connection closed!");
+            Debug.Log("Connection closed!");
         };
 
         websocket.OnMessage += bytes =>
         {
-        Debug.Log("OnMessage!");
-        Debug.Log(bytes);
+            Debug.Log("OnMessage!");
+            Debug.Log(bytes);
 
-        // getting the message as a string
-        // var message = System.Text.Encoding.UTF8.GetString(bytes);
-        // Debug.Log("OnMessage! " + message);
+            // getting the message as a string
+            // var message = System.Text.Encoding.UTF8.GetString(bytes);
+            // Debug.Log("OnMessage! " + message);
         };
 
         await websocket.Connect();
     }
 
-    private void Update() {
-        if (trackedObj.transform.position == prevPos) {
+    private void Update()
+    {
+        if (trackedObj.transform.position == prevPos)
+        {
             return;
         }
 
         prevPos = trackedObj.transform.position;
 
-        if(websocket.State != WebSocketState.Open) {
+        if (websocket.State != WebSocketState.Open)
+        {
             return;
         }
 
@@ -79,7 +84,7 @@ public class Sync : MonoBehaviour
 
     private void ComponentValueSet(Entity entity, IComponent component, bool setfromnetworkmessage)
     {
-        int value = (int) component.Get();
+        int value = (int)component.Get();
         Debug.Log(value);
     }
 }

@@ -1,48 +1,21 @@
 ﻿using app.Controllers;
+using Fleck;
 using StackExchange.Redis;
 
 namespace app
 {
     class Program
     {
-        private SessionController _sessionController;
-
         private static void Main(string[] args)
         {
+            var _redisController = new RedisController();
+            var _sessionController = new SessionController(_redisController);
+            var _wsController = new WebSocketController(_redisController, _sessionController);
+
             var builder = WebApplication.CreateBuilder(args);
-
-            builder.Services.AddControllers();
-            SetupRedis(builder.Services);
-            builder.Services.AddSingleton<SessionController>();
             var app = builder.Build();
-
-
-            SetupWebSocket(app);
-            app.UseDefaultFiles();
             app.UseStaticFiles();
-
-            app.MapControllers();
-
             app.Run();
-        }
-
-        private static void SetupRedis(IServiceCollection services)
-        {
-            var multiplexer = ConnectionMultiplexer.Connect("localhost");
-            services.AddSingleton<IConnectionMultiplexer>(multiplexer);
-            services.AddSingleton<RedisController>();
-        }
-
-        private static void SetupWebSocket(WebApplication app)
-        {
-            // <snippet_UseWebSockets>
-            var webSocketOptions = new WebSocketOptions
-            {
-                KeepAliveInterval = TimeSpan.FromMinutes(2),
-            };
-
-            app.UseWebSockets(webSocketOptions);
-            // </snippet_UseWebSockets>
         }
     }
 }

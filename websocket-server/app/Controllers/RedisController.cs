@@ -3,24 +3,25 @@ using StackExchange.Redis;
 
 namespace app.Controllers;
 
-public class RedisController : ControllerBase
+public class RedisController
 {
-    private readonly IConnectionMultiplexer _redis;
+    private readonly IConnectionMultiplexer _multiplexer;
 
-    public RedisController(IConnectionMultiplexer redis)
+    public RedisController()
     {
-        _redis = redis;
+        _multiplexer = ConnectionMultiplexer.Connect("localhost");
+
         Console.WriteLine("Redis Controller Ready");
     }
 
-    public async Task<IActionResult> WriteStreamData(string appID, int sessionID, byte[] data)
+    public async Task<bool> WriteStreamData(string appID, int sessionID, byte[] data)
     {
-        var db = _redis.GetDatabase();
+        var db = _multiplexer.GetDatabase();
         var foo = await db.StreamAddAsync($"{appID}:{sessionID}", new NameValueEntry[]
         {
             new("data", data)
         });
 
-        return Ok(foo.ToString());
+        return true;
     }
 }
