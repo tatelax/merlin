@@ -1,18 +1,21 @@
-﻿using StackExchange.Redis;
-using WebSocketsSample.Controllers;
+﻿using app.Controllers;
+using StackExchange.Redis;
 
-namespace WebSocketsSample
+namespace app
 {
     class Program
     {
-        static void Main(string[] args)
+        private SessionController _sessionController;
+
+        private static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllers();
             SetupRedis(builder.Services);
-
+            builder.Services.AddSingleton<SessionController>();
             var app = builder.Build();
+
 
             SetupWebSocket(app);
             app.UseDefaultFiles();
@@ -32,14 +35,14 @@ namespace WebSocketsSample
 
         private static void SetupWebSocket(WebApplication app)
         {
-// <snippet_UseWebSockets>
+            // <snippet_UseWebSockets>
             var webSocketOptions = new WebSocketOptions
             {
                 KeepAliveInterval = TimeSpan.FromMinutes(2),
             };
 
             app.UseWebSockets(webSocketOptions);
-// </snippet_UseWebSockets>
+            // </snippet_UseWebSockets>
         }
     }
 }

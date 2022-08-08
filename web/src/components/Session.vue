@@ -3,23 +3,29 @@
 </template>
 
 <script>
-import { io } from "socket.io-client";
-
 export default {
+  data() {
+    return {
+      connection: null
+    }
+  },
   created() {
     this.startSocket();
   },
   methods: {
     startSocket() {
-      const socket = io("http://localhost:3000");
-      socket.on("connect", () => {
-        console.log("Connected!");
-        socket.emit("getApps", this.$route.params.appId);
-      });
+      this.connection = new WebSocket("http://localhost:5000");
 
-      socket.on("apps", (apps) => {
-        console.log(apps);
-      });
+      this.connection.onmessage = function (event) {
+        console.log(event);
+      }
+
+      this.connection.onopen = function (event) {
+        console.log(event)
+        console.log("Successfully connected to the echo websocket server...")
+
+        this.connection.send("getApps");
+      }
     },
   },
 };
