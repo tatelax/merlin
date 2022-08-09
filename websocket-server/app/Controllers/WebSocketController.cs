@@ -19,7 +19,7 @@ namespace app.Controllers
 
             _wsServer = new WebSocketServer("ws://0.0.0.0:2414/");
             _wsServer.RestartAfterListenError = true;
-            _wsServer.SupportedSubProtocols = new[] { "GetSessions", "StateUpdate" };
+            _wsServer.SupportedSubProtocols = new[] { "GetSessionsList", "StateUpdate" };
 
             _wsServer.Start(socket =>
             {
@@ -52,8 +52,8 @@ namespace app.Controllers
         {
             switch (socket.ConnectionInfo.NegotiatedSubProtocol)
             {
-                case "GetSessions":
-                    GetSessions(socket);
+                case "GetSessionsList":
+                    SendSessionsList(socket);
                     break;
                 case "StateUpdate":
                     await StateUpdateAsync(socket, data);
@@ -66,23 +66,32 @@ namespace app.Controllers
 
         private void HandleClose(IWebSocketConnection socket)
         {
-            _sessionController.RemoveSession(socket);
+            if (socket.ConnectionInfo.SubProtocol == "StateUpdate")
+                _sessionController.RemoveSession(socket);
         }
 
-        private void GetSessions(IWebSocketConnection socket)
+        private void SendSessionsList(IWebSocketConnection socket)
         {
             string appID = GetParamFromURL(socket, "appID");
 
             if (string.IsNullOrEmpty(appID))
                 return;
 
-            SessionModel[]? sessions;
+            SessionListModel[]? sessions;
 
             if (!String.IsNullOrEmpty(appID))
             {
                 sessions = _sessionController.GetSessionsForApp(appID);
-                socket.Send(JsonConvert.SerializeObject(sessions));
-                Console.WriteLine($"Sent list of sessions for appID {appID}");
+
+                if (socket.IsAvailable)
+                {
+                    socket.Send(JsonConvert.SerializeObject(sessions));
+                    Console.WriteLine($"Sent list of sessions for appID {appID}");
+                }
+                else
+                {
+                    Console.WriteLine("Tried to send a list of sessions but the socket was not available");
+                }
             }
             else
             {

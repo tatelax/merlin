@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     startSocket() {
-      this.connection = new WebSocket("ws://localhost:2414/ws?userID=79&appID=112", "GetSessions");
+      this.connection = new WebSocket("ws://localhost:2414/ws?userID=79&appID=112", "GetSessionsList");
 
       this.connection.onopen = () => {
         console.log("Successfully connected to the echo websocket server...")
@@ -86,7 +86,7 @@ export default {
       this.loading1 = false;
     },
     getSessions() {
-      this.connection.send("GetSessions");
+      this.connection.send("getSessions");
     },
     initFilters1() {
       this.filters1 = {

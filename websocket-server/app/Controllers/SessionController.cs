@@ -1,5 +1,5 @@
-using System.Net.WebSockets;
 using Fleck;
+using Newtonsoft.Json;
 
 namespace app.Controllers
 {
@@ -26,6 +26,7 @@ namespace app.Controllers
             {
                 _sessionConnections.Add(socket, ++_sessionIncr);
                 Console.WriteLine($"Added new socket: {socket.ConnectionInfo.Id}");
+
             }
 
             if (!_sessions.ContainsKey(_sessionIncr))
@@ -43,15 +44,33 @@ namespace app.Controllers
             }
 
             await _redisController.WriteStateUpdate(appID, _sessionIncr, data);
+
             Console.WriteLine($"Updated session state for appID {appID}");
         }
 
         public void RemoveSession(IWebSocketConnection socket)
         {
-            int id = _sessionConnections[socket];
+            if (!_sessionConnections.ContainsKey(socket))
+            {
+                Console.WriteLine("The session did not exist. Failed to remove it.");
+                return;
+            }
+            int sessionID = _sessionConnections[socket];
+            string appID = _sessions[sessionID]._appID;
             _sessionConnections.Remove(socket);
 
-            Console.WriteLine($"Session Removed: {id}");
+            var clientsForThisSession = _sessions[sessionID]._clients;
+
+            for (int i = 0; i < clientsForThisSession.Count; i++)
+            {
+                if (clientsForThisSession[i].IsAvailable)
+                    clientsForThisSession[i].Close();
+            }
+
+            _sessions.Remove(sessionID);
+            _activeApps.Remove(appID);
+
+            Console.WriteLine($"Session Removed: {sessionID}");
         }
 
         // public async void AddSession(string userID, string appID, WebSocket socket)
@@ -121,7 +140,7 @@ namespace app.Controllers
         //     }
         // }
 
-        public SessionModel[]? GetSessionsForApp(string appID)
+        public SessionListModel[]? GetSessionsForApp(string appID)
         {
             if (!_activeApps.ContainsKey(appID))
             {
@@ -129,11 +148,11 @@ namespace app.Controllers
                 return null;
             }
 
-            SessionModel[] sessions = new SessionModel[_activeApps[appID].Count];
+            SessionListModel[] sessions = new SessionListModel[_activeApps[appID].Count];
 
             for (int i = 0; i < sessions.Length; i++)
             {
-                SessionModel newModel = new SessionModel();
+                SessionListModel newModel = new SessionListModel();
 
                 int sessionID = _activeApps[appID][i];
 
