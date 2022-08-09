@@ -32,8 +32,7 @@ public class Sync : MonoBehaviour
 
     private async void Start()
     {
-        websocket = new WebSocket("ws://localhost:2414/?userID=79&appID=111", "HelloWorld");
-
+        websocket = new WebSocket("ws://localhost:2414/?userID=79&appID=112", "GetApps");
 
         websocket.OnOpen += () =>
         {

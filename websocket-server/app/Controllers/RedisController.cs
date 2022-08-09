@@ -14,7 +14,7 @@ public class RedisController
         Console.WriteLine("Redis Controller Ready");
     }
 
-    public async Task<bool> WriteStreamData(string appID, int sessionID, byte[] data)
+    public async Task<bool> WriteStateUpdate(string appID, int sessionID, byte[] data)
     {
         var db = _multiplexer.GetDatabase();
         var foo = await db.StreamAddAsync($"{appID}:{sessionID}", new NameValueEntry[]

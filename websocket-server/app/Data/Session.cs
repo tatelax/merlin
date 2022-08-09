@@ -1,17 +1,18 @@
-using System.Net.WebSockets;
+using Fleck;
 
-public class Session 
+public class Session
 {
-    public List<WebSocket> _clients;
+    public List<IWebSocketConnection> _clients;
     public string _appID;
 
-    public Session(List<WebSocket> clients, string appID)
+    public Session(List<IWebSocketConnection> clients, string appID)
     {
         _clients = clients;
         _appID = appID;
     }
 
-    public void AddClient(WebSocket client) {
+    public void AddClient(IWebSocketConnection client)
+    {
         _clients.Add(client);
     }
 }

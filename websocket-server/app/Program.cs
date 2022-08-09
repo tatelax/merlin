@@ -1,6 +1,4 @@
 ﻿using app.Controllers;
-using Fleck;
-using StackExchange.Redis;
 
 namespace app
 {
