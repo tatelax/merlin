@@ -1,15 +1,19 @@
+using System;
 using System.Collections.Generic;
 using MerlinSDK;
 using MerlinSDK.Component;
 using MerlinSDK.Entity;
 using UnityEngine;
 using NativeWebSocket;
-using System.Collections;
 using System.Text;
 
 [RequireComponent(typeof(SimulationController))]
 public class Sync : MonoBehaviour
 {
+    public Action WebsocketOpened;
+    
+    [SerializeField] private string appID;
+
     public GameObject trackedObj;
 
     private SimulationController _controller;
@@ -25,19 +29,27 @@ public class Sync : MonoBehaviour
         {
             foreach (KeyValuePair<int, IWorld> world in _controller.Worlds)
             {
+                world.Value.OnEntityCreatedEvent += ValueOnOnEntityCreatedEvent;
                 world.Value.OnComponentSetOnEntityEvent += ComponentValueSet;
             }
         };
     }
 
+    private void ValueOnOnEntityCreatedEvent(Entity entity, bool entitycreatedfromnetworkmessage)
+    {
+        websocket.SendText($"{{ \"updateType\": \"CreateEntity\", \"updateData\":  {{\"entityID\": {entity.id} }}}}");
+    }
+
     private async void Start()
     {
-        websocket = new WebSocket("ws://localhost:2414/?userID=79&appID=112", "GetApps");
+        websocket = new WebSocket($"ws://localhost:2414/?userID=79&appID={appID}", "StateUpdate");
 
         websocket.OnOpen += () =>
         {
             Debug.Log("CONNECTED!");
             websocket.SendText("Hello World!");
+            
+            WebsocketOpened?.Invoke();
         };
 
         websocket.OnError += (e) =>

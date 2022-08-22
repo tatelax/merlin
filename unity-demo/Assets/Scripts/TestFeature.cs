@@ -8,6 +8,6 @@ public class TestFeature : Feature
     public TestFeature()
     {
         Systems = new MerlinSDK.Systems()
-            .Add(new TestInitializeSystem());
+            .Add(new TestUpdateSystem());
     }
 }

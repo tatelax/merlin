@@ -19,7 +19,7 @@ namespace app.Controllers
 
             _wsServer = new WebSocketServer("ws://0.0.0.0:2414/");
             _wsServer.RestartAfterListenError = true;
-            _wsServer.SupportedSubProtocols = new[] { "GetSessionsList", "StateUpdate" };
+            _wsServer.SupportedSubProtocols = new[] { "GetSessionsList", "StateUpdate", "SessionObserver" };
 
             _wsServer.Start(socket =>
             {
@@ -58,10 +58,21 @@ namespace app.Controllers
                 case "StateUpdate":
                     await StateUpdateAsync(socket, data);
                     break;
+                case "SessionObserver":
+                    AddSessionObserver(socket);
+                    break;
                 default:
                     Console.WriteLine("Received unknown sub protocol...");
                     break;
             }
+        }
+
+        private void AddSessionObserver(IWebSocketConnection socket)
+        {
+            string appID = GetParamFromURL(socket, "appID");
+            int sessionID = Int32.Parse(GetParamFromURL(socket, "sessionID"));
+
+            _sessionController.AddSessionObserver(socket, appID, sessionID);
         }
 
         private void HandleClose(IWebSocketConnection socket)
@@ -105,6 +116,8 @@ namespace app.Controllers
 
             if (!string.IsNullOrEmpty(appID))
                 await _sessionController.ReceiveStateAsync(socket, appID, data);
+            else
+                Console.WriteLine("uhm appID is missing from URL");
         }
 
         private string GetParamFromURL(IWebSocketConnection socket, string paramID)

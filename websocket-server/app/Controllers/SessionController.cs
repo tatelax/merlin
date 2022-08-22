@@ -24,26 +24,34 @@ namespace app.Controllers
         {
             if (!_sessionConnections.ContainsKey(socket))
             {
-                _sessionConnections.Add(socket, ++_sessionIncr);
+                _sessionIncr++;
+                _sessionConnections.Add(socket, _sessionIncr);
                 Console.WriteLine($"Added new socket: {socket.ConnectionInfo.Id}");
 
-            }
+                if (!_sessions.ContainsKey(_sessionIncr))
+                {
+                    _sessions.Add(_sessionIncr, new Session(new List<IWebSocketConnection> { socket }, appID));
+                    Console.WriteLine($"Added new session {_sessionIncr}");
+                }
 
-            if (!_sessions.ContainsKey(_sessionIncr))
-            {
-                _sessions.Add(_sessionIncr, new Session(new List<IWebSocketConnection> { socket }, appID));
-            }
-
-            if (!_activeApps.ContainsKey(appID))
-            {
-                _activeApps.Add(appID, new List<int> { _sessionIncr });
+                if (!_activeApps.ContainsKey(appID))
+                {
+                    _activeApps.Add(appID, new List<int> { _sessionIncr });
+                    Console.WriteLine($"Added active app {appID}");
+                }
+                else
+                {
+                    _activeApps[appID].Add(_sessionIncr);
+                    Console.WriteLine($"Added connection to app {appID}");
+                }
             }
             else
             {
-                _activeApps[appID].Add(_sessionIncr);
+                Console.WriteLine("Socket already registered");
             }
 
             await _redisController.WriteStateUpdate(appID, _sessionIncr, data);
+            SendStateUpdateToClients(_sessionConnections[socket], data);
 
             Console.WriteLine($"Updated session state for appID {appID}");
         }
@@ -71,6 +79,24 @@ namespace app.Controllers
             _activeApps.Remove(appID);
 
             Console.WriteLine($"Session Removed: {sessionID}");
+        }
+
+        public void AddSessionObserver(IWebSocketConnection socket, string appID, int sessionID)
+        {
+            _sessions[sessionID].AddClient(socket);
+        }
+
+        public void SendStateUpdateToClients(int sessionID, byte[] data)
+        {
+            Session session = _sessions[sessionID];
+
+            for (int i = 0; i < session._clients.Count; i++)
+            {
+                session._clients[i].Send(data);
+                Console.WriteLine(i);
+            }
+
+            Console.WriteLine("Send update to all clients");
         }
 
         // public async void AddSession(string userID, string appID, WebSocket socket)

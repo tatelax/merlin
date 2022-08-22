@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     startSocket() {
-      this.connection = new WebSocket("ws://localhost:2414/ws?userID=79&appID=112", "GetSessionsList");
+      this.connection = new WebSocket(`ws://localhost:2414/ws?userID=79&appID=${this.$route.params.appId}`, "GetSessionsList");
 
       this.connection.onopen = () => {
         console.log("Successfully connected to the echo websocket server...")
@@ -124,7 +124,7 @@ export default {
     onRowSelect(event) {
       this.$router.push({
         name: 'session',
-        params: { sessionId: event.data.sessionId }
+        params: { sessionId: event.data.sessionID }
       });
     },
     onRowUnselect(event) {
