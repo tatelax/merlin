@@ -49,11 +49,6 @@ const routes = [
     component: () => import("./pages/Auth.vue"),
   },
   {
-    path: "/landing",
-    name: "landing",
-    component: () => import("./pages/LandingDemo.vue"),
-  },
-  {
     path: "/error",
     name: "error",
     component: () => import("./pages/Error.vue"),
