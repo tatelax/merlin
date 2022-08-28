@@ -1,6 +1,7 @@
 <template>
 	<div class="layout-menu-container">
-		<AppSubmenu :items="model" class="layout-menu" :root="true" @menuitem-click="onMenuItemClick" @keydown="onKeyDown" />
+		<AppSubmenu :items="model" class="layout-menu" :root="true" @menuitem-click="onMenuItemClick"
+			@keydown="onKeyDown" />
 	</div>
 </template>
 
@@ -11,10 +12,10 @@ export default {
 	props: {
 		model: Array
 	},
-    methods: {
-        onMenuItemClick(event) {
-            this.$emit('menuitem-click', event);
-        },
+	methods: {
+		onMenuItemClick(event) {
+			this.$emit('menuitem-click', event);
+		},
 		onKeyDown(event) {
 			const nodeElement = event.target;
 			if (event.code === 'Enter' || event.code === 'Space') {
@@ -25,7 +26,7 @@ export default {
 		bannerImage() {
 			return this.$appState.darkTheme ? 'images/banner-primeblocks-dark.png' : 'images/banner-primeblocks.png';
 		}
-    },
+	},
 	computed: {
 		darkTheme() {
 			return this.$appState.darkTheme;

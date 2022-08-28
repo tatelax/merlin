@@ -2,7 +2,7 @@
   <div :class="containerClass" @click="onWrapperClick">
     <AppTopBar @menu-toggle="onMenuToggle" />
 
-    <div class="layout-sidebar" @click="onSidebarClick" v-if="hasSelectedApp">
+    <div class="layout-sidebar" @click="onSidebarClick" v-if="shouldShowMenu">
       <AppMenu :model="menu" @menuitem-click="onMenuItemClick" :exact="true" />
     </div>
 
@@ -14,10 +14,7 @@
     </div>
 
     <transition name="layout-mask">
-      <div
-        class="layout-mask p-component-overlay"
-        v-if="mobileMenuActive"
-      ></div>
+      <div class="layout-mask p-component-overlay" v-if="mobileMenuActive"></div>
     </transition>
   </div>
 </template>
@@ -133,12 +130,18 @@ export default {
 
       return true;
     },
+    setMenuState(state) {
+      this.staticMenuInactive = state;
+    }
   },
   computed: {
-    hasSelectedApp() {
-      if (this.$route.fullPath.split("apps/").length > 1) {
+    shouldShowMenu() {
+      if (this.$route.name == 'dashboard' || this.$route.name == 'sessions') {
+        this.setMenuState(false);
         return true;
-      } else {
+      }
+      else {
+        this.setMenuState(true);
         return false;
       }
     },
