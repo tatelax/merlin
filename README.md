@@ -1,14 +1,25 @@
-# merlin
-Monorepo for Merlin
+# Merlin
+This is the monorepo for Merlin. Merlin is an SDK for Unity that allows developers to easily create an application using Data Oriented Design while providing additional functions automatically such as real-time state read/write, analytics, improved overall code architecture, more testable code, and more.
 
-## unity-demo
+## Repository Structure
+
+### cloud-functions
+Firebase cloud functions that automatically handle things such as generating an API key for users when their account is created.
+
+### notes
+Various markdown based notes about the project
+
+### unity-demo
 A demo project in Unity showing how to use Merlin.
 
-## unity-sdk
+### unity-sdk
 The Unity SDK that users can install via UPM to use Merlin in their projects.
 
-## web
+### web
 The vue.js based web app users use to interact with their application.
 
-## websocket
+### websocket-client-testing
+A test application for the websocket client
+
+### websocket-server
 The websocket server that users applications will connect to which sends and receives data to/from their app to the web app.
