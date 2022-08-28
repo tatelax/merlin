@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/tatelax/merlin/blob/master/assets/DALL%C2%B7E%202022-08-27%2022.40.51%20-%20Merlin%20the%20Wizard%20writing%20code%2C%20digital%20art.png" alt="merlin-logo">
+  <a href="https://merlinsdk.com"><img src="https://github.com/tatelax/merlin/blob/master/assets/DALL%C2%B7E%202022-08-27%2022.40.51%20-%20Merlin%20the%20Wizard%20writing%20code%2C%20digital%20art.png" alt="merlin-logo"></a>
 </p>
 
 # Merlin
