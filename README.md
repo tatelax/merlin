@@ -1,3 +1,5 @@
+![merlin-logo](https://github.com/tatelax/merlin/blob/master/assets/DALL%C2%B7E%202022-08-27%2022.40.51%20-%20Merlin%20the%20Wizard%20writing%20code%2C%20digital%20art.png)
+
 # Merlin
 This is the monorepo for Merlin. Merlin is an SDK for Unity that allows developers to easily create an application using Data Oriented Design while providing additional functions automatically such as real-time state read/write, analytics, improved overall code architecture, more testable code, and more.
 
