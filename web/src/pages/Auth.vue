@@ -14,23 +14,25 @@
                         <div class="text-900 text-3xl font-medium mb-3">Welcome!</div>
                         <span class="text-600 font-medium">Sign in to continue</span>
                     </div>
-<!--LOGIN-->
+                    <!--LOGIN-->
                     <TabView ref="auth" style="">
                         <TabPanel header="Login">
                             <div class="w-full md:w-10 mx-auto">
                                 <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
                                 <InputText id="email1" v-model="email" type="text" class="w-full mb-3"
-                                    :class="{ 'p-invalid': (!validateEmail() && login_BadEmail) || loginFailed }" placeholder="Email"
-                                    style="padding:1rem;" />
+                                    :class="{ 'p-invalid': (!validateEmail() && login_BadEmail) || loginFailed }"
+                                    placeholder="Email" style="padding:1rem;" />
 
                                 <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
                                 <Password id="password1" v-model="password" placeholder="Password" :toggleMask="true"
-                                    class="w-full mb-3" :class="{ 'p-invalid': (!validatePassword() && login_BadPassword) || loginFailed }"
+                                    class="w-full mb-3"
+                                    :class="{ 'p-invalid': (!validatePassword() && login_BadPassword) || loginFailed }"
                                     inputClass="w-full" inputStyle="padding:1rem" :feedback="false"></Password>
 
                                 <div class="flex align-items-center justify-content-between mb-5">
                                     <div class="flex align-items-center">
-                                        <Checkbox id="rememberme1" v-model="rememberMeChecked" :binary="true" class="mr-2">
+                                        <Checkbox id="rememberme1" v-model="rememberMeChecked" :binary="true"
+                                            class="mr-2">
                                         </Checkbox>
                                         <label for="rememberme1">Remember me</label>
                                     </div>
@@ -40,17 +42,18 @@
                                 <Button label="Sign In" class="w-full p-3 text-xl" @click.prevent="login()"></button>
                             </div>
                         </TabPanel>
-<!--REGISTER-->
+                        <!--REGISTER-->
                         <TabPanel header="Register">
                             <div class="w-full md:w-10 mx-auto">
                                 <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
                                 <InputText id="email1" v-model="email" type="text" class="w-full mb-3"
-                                    :class="{ 'p-invalid': !validateEmail() && register_BadEmail}" placeholder="Email"
+                                    :class="{ 'p-invalid': !validateEmail() && register_BadEmail }" placeholder="Email"
                                     style="padding:1rem;" />
 
                                 <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
                                 <Password id="password1" v-model="password" placeholder="Password" :toggleMask="true"
-                                    class="w-full mb-3" :class="{ 'p-invalid': !validatePassword() && register_BadPassword }"
+                                    class="w-full mb-3"
+                                    :class="{ 'p-invalid': !validatePassword() && register_BadPassword }"
                                     inputClass="w-full" inputStyle="padding:1rem"></Password>
 
                                 <div class="flex align-items-center justify-content-between mb-5">
@@ -81,10 +84,10 @@ export default {
             password: '',
             rememberMeChecked: false,
             login_BadEmail: false,
-            login_BadPassword : false,
+            login_BadPassword: false,
             register_BadEmail: false,
             register_BadPassword: false,
-            loginFailed : false,
+            loginFailed: false,
             validationErrors: [],
             tabItems: [
                 { label: 'Home', icon: 'pi pi-fw pi-home', to: '/error' },
@@ -128,19 +131,19 @@ export default {
             return true;
         },
         login() {
-            if(!this.validateEmail()) {
+            if (!this.validateEmail()) {
                 this.login_BadEmail = true;
             } else {
                 this.login_BadEmail = false;
             }
 
-            if(!this.validatePassword()) {
+            if (!this.validatePassword()) {
                 this.login_BadPassword = true;
             } else {
                 this.login_BadPassword = false;
             }
 
-            if(this.login_BadEmail || this.login_BadPassword) {
+            if (this.login_BadEmail || this.login_BadPassword) {
                 return;
             }
 
@@ -154,19 +157,19 @@ export default {
             });
         },
         register() {
-            if(!this.validateEmail()) {
+            if (!this.validateEmail()) {
                 this.login_BadEmail = true;
             } else {
                 this.login_BadEmail = false;
             }
 
-            if(!this.validatePassword()) {
+            if (!this.validatePassword()) {
                 this.login_BadPassword = true;
             } else {
                 this.login_BadPassword = false;
             }
 
-            if(this.login_BadEmail || this.login_BadPassword) {
+            if (this.login_BadEmail || this.login_BadPassword) {
                 return;
             }
 

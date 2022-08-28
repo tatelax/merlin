@@ -1,9 +1,6 @@
 <template>
   <div class="layout-topbar">
-    <button
-      class="p-link layout-menu-button layout-topbar-button"
-      @click="onMenuToggle"
-    >
+    <button class="p-link layout-menu-button layout-topbar-button" @click="onMenuToggle">
       <i class="pi pi-bars"></i>
     </button>
 
@@ -12,39 +9,26 @@
       <span>Merlin</span>
     </router-link>
 
-    <button
-      class="p-link layout-topbar-menu-button layout-topbar-button"
-      v-styleclass="{
-        selector: '@next',
-        enterClass: 'hidden',
-        enterActiveClass: 'scalein',
-        leaveToClass: 'hidden',
-        leaveActiveClass: 'fadeout',
-        hideOnOutsideClick: true,
-      }"
-    >
+    <button class="p-link layout-topbar-menu-button layout-topbar-button" v-styleclass="{
+      selector: '@next',
+      enterClass: 'hidden',
+      enterActiveClass: 'scalein',
+      leaveToClass: 'hidden',
+      leaveActiveClass: 'fadeout',
+      hideOnOutsideClick: true,
+    }">
       <i class="pi pi-ellipsis-v"></i>
     </button>
     <ul class="layout-topbar-menu hidden lg:flex origin-top">
       <li>
-        <button
-          class="p-link layout-topbar-button"
-          v-tooltip="'All Apps'"
-          @click="returnToAppList"
-        >
+        <button class="p-link layout-topbar-button" v-tooltip="'All Apps'" @click="returnToAppList">
           <i class="pi pi-th-large"></i>
           <span>All Apps</span>
         </button>
       </li>
       <li>
-        <Dropdown
-          v-model="currentAppDropdownItem"
-          :options="appItems"
-          optionLabel="name"
-          placeholder="Select an App"
-          v-on:change="setSelectedAppDropdown"
-          :loading="appListLoading"
-        />
+        <Dropdown v-model="currentAppDropdownItem" :options="appItems" optionLabel="name" placeholder="Select an App"
+          v-on:change="setSelectedAppDropdown" :loading="appListLoading" />
       </li>
       <li>
         <button class="p-link layout-topbar-button">

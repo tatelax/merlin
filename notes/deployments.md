@@ -1,6 +1,6 @@
 # Hosting
 
-* Domain - TBD
+* Domain - Namecheap
 * Website - Vercel
 * Redis - TBD
 * Websocket - TBD

@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import store from "../store";
+
 export default {
   data() {
     return {
@@ -14,6 +16,7 @@ export default {
     }
   },
   created() {
+    store.commit("setMenuInactive", true);
     this.startSocket();
   },
   methods: {
