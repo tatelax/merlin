@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   logLevel: 1
+  sync: {fileID: 691378455}
 --- !u!4 &691378454
 Transform:
   m_ObjectHideFlags: 0

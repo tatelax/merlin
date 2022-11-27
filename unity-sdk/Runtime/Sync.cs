@@ -37,7 +37,7 @@ public class Sync : MonoBehaviour
 
     private void ValueOnOnEntityCreatedEvent(Entity entity, bool entitycreatedfromnetworkmessage)
     {
-        websocket.SendText($"{{ \"updateType\": \"CreateEntity\", \"updateData\":  {{\"entityID\": {entity.id} }}}}");
+        websocket.Send(Encoding.ASCII.GetBytes($"{{ \"updateType\": \"CreateEntity\", \"updateData\":  {{\"entityID\": {entity.id} }}}}"));
     }
 
     private async void Start()
@@ -47,7 +47,7 @@ public class Sync : MonoBehaviour
         websocket.OnOpen += () =>
         {
             Debug.Log("CONNECTED!");
-            websocket.SendText("Hello World!");
+            websocket.Send(Encoding.ASCII.GetBytes("Hello World!"));
             
             WebsocketOpened?.Invoke();
         };

@@ -1,5 +1,5 @@
-websocket-server/app/bin/*
-websocket-server/app/obj/*
+websocket-server/bin/*
+websocket-server/obj/*
 
 .DS_Store
 

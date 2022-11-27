@@ -20,7 +20,7 @@ public class TestUpdateSystem : IUpdateSystem, IInitializeSystem
         if (lastUpdate <= 0f)
         {
             mainWorld.CreateEntity();
-            lastUpdate = 10f;
+            lastUpdate = 1f;
         }
     }
 }
