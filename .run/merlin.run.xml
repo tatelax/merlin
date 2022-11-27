@@ -1,7 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="merlin" type="CompoundRunConfigurationType">
-    <toRun name="web" type="js.build_tools.npm" />
-    <toRun name="websocket" type="js.build_tools.npm" />
-    <method v="2" />
-  </configuration>
-</component>

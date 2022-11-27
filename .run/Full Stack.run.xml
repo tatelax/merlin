@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Full Stack" type="CompoundRunConfigurationType">
+    <toRun name="websocket-server" type="DotNetProject" />
+    <toRun name="serve" type="js.build_tools.npm" />
+    <method v="2" />
+  </configuration>
+</component>
