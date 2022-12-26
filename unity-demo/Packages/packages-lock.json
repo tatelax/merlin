@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.kinematic.games.merlin-sdk": {
-      "version": "file:/Users/tatemccormick/Documents/Projects/merlin/unity-sdk",
+      "version": "file:S:/GitHub/merlin/unity-sdk",
       "depth": 0,
       "source": "local",
       "dependencies": {}
