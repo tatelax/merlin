@@ -9,6 +9,8 @@
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.2.0",
+    "@vueuse/core": "^9.9.0",
+    "@vueuse/nuxt": "^9.9.0",
     "nuxt": "3.0.0"
   }
 }
