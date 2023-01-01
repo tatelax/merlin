@@ -5,9 +5,9 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Start Vue",
+            "name": "Nuxt",
             "cwd": "${workspaceFolder}/web",
-            "command": "npm run serve",
+            "command": "pnpm dev",
             "request": "launch",
             "type": "node-terminal"
         },
@@ -26,7 +26,7 @@
     "compounds": [
         {
             "name": "Run All",
-            "configurations": ["Start Vue", "Websocket Build & Launch (console)"],
+            "configurations": ["Nuxt", "Websocket Build & Launch (console)"],
             "stopAll": true
         }
     ]
