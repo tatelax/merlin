@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Nuxt",
+            "name": "Web",
             "cwd": "${workspaceFolder}/web",
             "command": "pnpm dev",
             "request": "launch",
@@ -26,7 +26,7 @@
     "compounds": [
         {
             "name": "Run All",
-            "configurations": ["Nuxt", "Websocket Build & Launch (console)"],
+            "configurations": ["Web", "Websocket Build & Launch (console)"],
             "stopAll": true
         }
     ]
