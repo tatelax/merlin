@@ -1,53 +1,14 @@
-websocket-server/bin/*
-websocket-server/obj/*
-
-.DS_Store
-
-# misc
-*/.sass-cache
-*/connect.lock
-*/coverage
-*/libpeerconnection.log
-*/npm-debug.log
-*/testem.log
-*/typings
-
-*/node_modules
-*/dist
-*/resources
-*/components
-*/package-lock.json
-
-# local env files
-.env.local
-.env.*.local
-
-# Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Editor directories and files
-.idea
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw*
-
-#####UNITY
-
 # This .gitignore file should be placed at the root of your Unity project directory
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
-unity-demo/[Ll]ibrary/
-unity-demo/[Tt]emp/
-unity-demo/[Oo]bj/
-unity-demo/[Bb]uild/
-unity-demo/[Bb]uilds/
-unity-demo/[Ll]ogs/
-unity-demo/[Uu]ser[Ss]ettings/
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
@@ -109,6 +70,3 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
-*.rdb
-
-!websocket-server/websocket-server.csproj
