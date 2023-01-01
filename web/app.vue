@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import YAML from 'yaml'
+
 const { x, y } = useMouse()
 
 const appId = '6J2FnJq8hQ8mEJ5Q1vdT'
@@ -25,5 +27,5 @@ onMounted(() => getSessions())
 
 <template>
   <button class="underline text-sky-500" v-for="s in sessions" @click="loadSession(s)">Session {{ s.sessionID }}</button>
-  <pre class="text-sm">{{ sessionData }}</pre>
+  <pre class="text-sm" v-if="sessionData.length" v-text="YAML.stringify(sessionData)" />
 </template>

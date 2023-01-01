@@ -12,5 +12,8 @@
     "@vueuse/core": "^9.9.0",
     "@vueuse/nuxt": "^9.9.0",
     "nuxt": "3.0.0"
+  },
+  "dependencies": {
+    "yaml": "^2.2.1"
   }
 }
