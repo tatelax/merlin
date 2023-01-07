@@ -15,6 +15,7 @@ public class GameObjectPositionSystem : IUpdateSystem, IInitializeSystem
     public void Update()
     {
         Stopwatch stopwatch = new Stopwatch();
+        stopwatch.Start();
         
         foreach (var entity in mainWorld.GetEntities<GameObjectComponent>())
         {
@@ -23,6 +24,8 @@ public class GameObjectPositionSystem : IUpdateSystem, IInitializeSystem
         }
         
         stopwatch.Stop();
+        
+        Debug.Log(stopwatch.ElapsedMilliseconds.ToString());
     }
 
     public void Initialize()

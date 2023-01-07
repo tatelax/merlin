@@ -10,8 +10,13 @@ public class GameObjectInitializeSystem : IInitializeSystem
         for (int i = 0; i < 1000000; i++)
         {
             var entity = world.CreateEntity();
-            var obj = new GameObject();
-            obj.transform.position = Random.insideUnitSphere * 100f;
+            var obj = new GameObject
+            {
+                transform =
+                {
+                    position = Random.insideUnitSphere * 100f
+                }
+            };
 
             entity.Set<GameObjectComponent>(obj);
         }
