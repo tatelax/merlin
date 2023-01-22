@@ -1,16 +1,15 @@
-# This is a sample Python script.
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+# Fetch the service account key JSON file contents
+cred = credentials.Certificate('./fb-key.json')
 
+# Initialize the app with a service account, granting admin privileges
+firebase_admin.initialize_app(cred, {
+    'databaseURL': 'https://merlin-3e4ce-default-rtdb.firebaseio.com'
+})
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# As an admin, the app has access to read and write all data, regradless of Security Rules
+ref = db.reference('components/c-3ce6fc0c-4f5e-4be2-ba80-5abc4fdb1bf9')
+print(ref.get())
